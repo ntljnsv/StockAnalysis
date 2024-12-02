@@ -7,4 +7,5 @@ import java.util.List;
 public interface DayService {
     List<Day> getAllData();
     Day getDayById(Long id);
+    List<Day> findByIssuer(String issuer);
 }

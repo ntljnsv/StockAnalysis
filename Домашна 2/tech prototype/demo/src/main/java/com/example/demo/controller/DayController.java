@@ -29,4 +29,9 @@ public class DayController {
     public ResponseEntity<Day> getStockDataById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(dayService.getDayById(id));
     }
+
+    @GetMapping("/issuer/{name}")
+    public ResponseEntity<List<Day>> getStockDataForIssuer(@PathVariable("name") String issuer) {
+        return ResponseEntity.ok(dayService.findByIssuer(issuer));
+    }
 }

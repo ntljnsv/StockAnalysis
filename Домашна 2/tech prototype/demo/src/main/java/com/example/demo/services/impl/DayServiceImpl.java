@@ -26,4 +26,9 @@ public class DayServiceImpl implements DayService {
     public Day getDayById(Long id) {
         return dayRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public List<Day> findByIssuer(String issuer) {
+        return dayRepository.findByIssuer(issuer);
+    }
 }

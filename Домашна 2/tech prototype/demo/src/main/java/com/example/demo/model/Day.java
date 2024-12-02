@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "data")
+@Table(name = "DayData")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Day {
@@ -18,34 +18,34 @@ public class Day {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Издавач", nullable = false)
+    @Column(name = "Issuer", nullable = false)
     private String issuer;
 
-    @Column(name = "Датум", nullable = false)
+    @Column(name = "Date", nullable = false)
     private String date;
 
-    @Column(name = "Цена на последна трансакција")
-    private String lastTransactionPrice;
+    @Column(name = "LastTranscationPrice")
+    private Double lastTransactionPrice;
 
-    @Column(name = "Мак.")
-    private String maxPrice;
+    @Column(name = "Max")
+    private Double maxPrice;
 
-    @Column(name = "Мин.")
-    private String minPrice;
+    @Column(name = "Min")
+    private Double minPrice;
 
-    @Column(name = "Просечна џена")
-    private String avgPrice;
+    @Column(name = "AveragePrice")
+    private Double avgPrice;
 
-    @Column(name = "%пром.")
-    private String percentageChange;
+    @Column(name = "PercentChange")
+    private Double percentageChange;
 
-    @Column(name = "Количина")
+    @Column(name = "Quantity")
     private Double quantity;
 
-    @Column(name = "Промет во БЕСТ во денари")
+    @Column(name = "Turnover")
     private Double turnover;
 
-    @Column(name = "Вкупен промет во денари")
+    @Column(name = "TotalTurnover")
     private Double totalTurnover;
 
 }

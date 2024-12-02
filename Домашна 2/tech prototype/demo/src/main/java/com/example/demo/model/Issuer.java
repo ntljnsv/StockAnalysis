@@ -12,9 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Issuer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String name;
 
-    @Column(name = "Издавач", nullable = false)
-    private String issuer;
 }

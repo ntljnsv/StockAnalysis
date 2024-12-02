@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Day;
 import com.example.demo.model.Issuer;
 import com.example.demo.services.IssuerService;
 import org.springframework.http.ResponseEntity;
@@ -29,4 +28,5 @@ public class IssuerController {
     public ResponseEntity<Issuer> getStockDataById(@PathVariable("name") String name) {
         return ResponseEntity.ok(issuerService.getIssuerByName(name));
     }
+
 }
