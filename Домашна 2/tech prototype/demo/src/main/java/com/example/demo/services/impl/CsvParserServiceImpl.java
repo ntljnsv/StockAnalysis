@@ -8,6 +8,7 @@ import com.example.demo.services.CsvParserService;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
@@ -28,10 +29,12 @@ public class CsvParserServiceImpl implements CsvParserService {
     }
 
     @PostConstruct
+    @Transactional
     public void init() {
         parseAndSaveCsv("issuer_data_cleaned.csv");
     }
 
+    @Transactional
     public void parseAndSaveCsv(String filePath) {
         ClassPathResource resource = new ClassPathResource(filePath);
         List<Day> stockDataList = new ArrayList<>();
@@ -67,10 +70,10 @@ public class CsvParserServiceImpl implements CsvParserService {
             Issuer issuer = issuerRepository.findByName(issuerName).orElse(null);
             if (issuer == null) {
                 issuer = new Issuer(issuerName);
-                issuerRepository.save(issuer);
+                issuer = issuerRepository.save(issuer);
             }
-            stockData.setIssuer(issuerName);
 
+            stockData.setIssuer(issuer);
             stockData.setDate(columns[1].trim());
             stockData.setLastTransactionPrice(parseNumeric(columns[2]));
             stockData.setMaxPrice(parseNumeric(columns[3]));

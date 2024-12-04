@@ -5,7 +5,6 @@ import com.example.demo.repository.DayRepository;
 import com.example.demo.services.DayService;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -29,6 +28,6 @@ public class DayServiceImpl implements DayService {
 
     @Override
     public List<Day> findByIssuer(String issuer) {
-        return dayRepository.findByIssuer(issuer);
+        return dayRepository.findByIssuerName(issuer);
     }
 }

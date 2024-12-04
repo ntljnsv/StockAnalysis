@@ -18,8 +18,9 @@ public class Day {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Issuer", nullable = false)
-    private String issuer;
+    @ManyToOne
+    @JoinColumn(name = "issuer_name", nullable = false)
+    private Issuer issuer;
 
     @Column(name = "Date", nullable = false)
     private String date;
