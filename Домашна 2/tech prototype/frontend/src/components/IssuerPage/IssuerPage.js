@@ -18,10 +18,17 @@ const IssuerPage = () => {
 
     const displayedData = stockData.slice(0, 20);
 
-    const chartData = displayedData.map((data) => ({
-        lastTransactionPrice: data.lastTransactionPrice,
-        date: data.date,
-    }));
+    const chartData = displayedData
+        .map((data) => ({
+            lastTransactionPrice: data.lastTransactionPrice,
+            date: data.date,
+        }))
+        .sort((a, b) => {
+            const dateA = a.date.split('.').reverse().join('-');
+            const dateB = b.date.split('.').reverse().join('-');
+            return new Date(dateA) - new Date(dateB);
+        });
+
 
     return (
         <div className="issuerPage">
