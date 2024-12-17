@@ -1,0 +1,69 @@
+.issuerPage {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #007bff;
+}
+
+.card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #444;
+}
+
+.styledTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.styledTable thead {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.styledTable th,
+.styledTable td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.styledTable tbody tr:nth-of-type(odd) {
+    background-color: #f3f3f3;
+}
+
+.styledTable tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.styledTable tbody td {
+    text-align: center;
+}
+
+.card h2 {
+    text-align: center;
+    color: #007bff;
+}
+
+.issuerPage .card {
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+}
