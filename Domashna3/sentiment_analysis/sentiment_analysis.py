@@ -3,10 +3,11 @@ import fitz
 import torch
 import aiohttp
 import asyncio
+from lxml import etree
 from io import BytesIO
+from itertools import chain
 from datetime import datetime
 from aiohttp import ClientTimeout
-from lxml import etree
 from sqlalchemy import create_engine
 from sqlalchemy import text
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
@@ -67,7 +68,7 @@ class Parser:
         text = ' '.join(text.split())
         text = re.sub(r'\s+', ' ', text)
         text = re.sub(r'[^\w\s]', '', text)
-        print(text)
+        text = text.replace('nbsp', '')
         return text.lower()
 
     def parse_file(self, byte_code):
@@ -77,10 +78,11 @@ class Parser:
             page = file.load_page(page_num)
             text += page.get_text("text")
         text = self.clean_text(text)
-        print(text)
         return text
 
     def parse_html(self, content):
+        if "automatically generated" in content or "original document" in content or "link" in content:
+            return None
         text = re.sub(r'<[^>]+>', '', content).strip()
         text = self.clean_text(text)
         return text
@@ -124,22 +126,24 @@ class Scraper:
     async def fetch_news(self, news_id):
         news_url = self.text_url.format(news_id=news_id)
         async with self.session.get(news_url) as response:
-            if response.status_code == 200:
-                data = response.json()
-                data = data.get("data", {}).get("content", None)
+            if response.status == 200:
+                data = await response.json()
+                content = data.get("data", {}).get("attachments", None)
+                if content:
+                    attachment_id = content[0].get("attachmentId", None)
+                    attachment_type = content[0].get("attachmentType", {}).get("mimeType", "")
+                    if attachment_type == "application/pdf" and attachment_id is not None:
+                        return await self.fetch_attachment(attachment_id) if attachment_id else None
+                content = data.get("data", {}).get("content", None)
                 if data:
-                    return self.parser.parse_html(data)
-                data = data.get("data", {}).get("attachments", None)
-                if data:
-                    attachment_id = data[0].get("attachmentId", None)
-                    return self.fetch_attachment(attachment_id) if attachment_id else None
+                    return self.parser.parse_html(content)
         return None
 
     async def fetch_attachment(self, attachment_id):
         url = self.attachment_url.format(attachment_id=attachment_id)
         async with self.session.get(url) as response:
-            if response.status_code == 200:
-                content = BytesIO(response.content)
+            if response.status == 200:
+                content = BytesIO(await response.read())
                 return self.parser.parse_file(content)
         return None
 
@@ -157,7 +161,6 @@ class SentimentAnalyzer:
     def get_label(self, prediction):
         labels = self.model.config.id2label
         return labels[prediction.item()]
-
 
     def analyze_article(self, text):
         inputs = self.tokenizer(text, max_length=512, truncation=True, padding='max_length', return_tensors='pt')
@@ -177,9 +180,13 @@ class Pipeline:
 
     async def process_issuer(self, issuer, scraper):
         latest_date = self.db.get_latest_date(issuer)
-        print(f"{issuer}: {latest_date}")
         news_links = await scraper.get_issuer_news_links(issuer)
-        print(f"LINKS -> {issuer}: {news_links}")
+
+        if len(news_links) == 0:
+            return [{"issuer_name": issuer,
+                     "recommendation": "no_data",
+                     "scraped_date": datetime.utcnow().strftime('%Y-%m-%d')}
+                    ]
 
         filtered_links = [
             (news_id, date) for news_id, date in news_links
@@ -192,16 +199,26 @@ class Pipeline:
 
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
-        final_results = [result for result in results if result is not None]
+        final_results = [
+            result for result in results if result is not None and not isinstance(result, Exception) and result != []
+        ]
 
-        print(f"DATA -> {issuer}: {final_results}")
+        if len(final_results) == 0:
+            return [{"issuer_name": issuer,
+                     "recommendation": "no_data",
+                     "scraped_date": datetime.utcnow().strftime('%Y-%m-%d')}
+                    ]
+
         return final_results
 
     async def process_article(self, issuer, news_id, date, scraper):
-        content = scraper.fetch_news(news_id)
+        content = await scraper.fetch_news(news_id)
         if content:
             recommendation = self.sentiment_analyzer.analyze_article(content)
-            return issuer, recommendation, datetime.utcnow().strftime('%Y-%m-%d')
+            return {"issuer_name": issuer,
+                    "recommendation": recommendation,
+                    "scraped_date": datetime.utcnow().strftime('%Y-%m-%d')
+                    }
 
     async def process_issuer_with_retry_with_semaphore(self, issuer, scraper, semaphore, retries=3, timeout=60):
         attempt = 0
@@ -226,7 +243,7 @@ class Pipeline:
 
     async def run(self):
         issuers = self.db.get_issuers()
-        semaphore = asyncio.Semaphore(15)
+        semaphore = asyncio.Semaphore(20)
         async with aiohttp.ClientSession(timeout=ClientTimeout(total=120)) as session:
             scraper = Scraper(session, self.parser)
             tasks = [
@@ -234,7 +251,9 @@ class Pipeline:
                 for issuer in issuers
             ]
             results = await asyncio.gather(*tasks)
+            results = list(chain.from_iterable(results))
             self.db.save_data(results)
+            self.db.update_current_recommendations()
 
 
 # Running the Pipeline
