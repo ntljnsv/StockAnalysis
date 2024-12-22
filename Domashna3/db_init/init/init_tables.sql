@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS issuers (
     issuer_name varchar(50) primary key,
-		current_recommendation varchar(10) default 'hold'
+		current_recommendation varchar(10) default 'no_data'
 );
 
 
