@@ -252,29 +252,6 @@ class CombineAndSaveFilter(Filter):
         self.db_helper.save_data(new_data)
 
 
-async def main():
-    url = "https://www.mse.mk/en/stats/symbolhistory/ADIN"
-    issuer_urls = ["https://www.mse.mk/en/stats/current-schedule#results-continuousTradingMode",
-                   "https://www.mse.mk/en/stats/current-schedule#results-fixingWith20PercentLimit",
-                   "https://www.mse.mk/en/stats/current-schedule#results-fixingWithoutLimit"]
-
-    db_connection_string = os.getenv("DB_CONNECTION_STRING")
-    db_helper = DatabaseHelper(db_connection_string)
-
-    pipeline = Pipeline()
-    pipeline.connect(ValidIssuersFilter(db_helper)) \
-        .connect(IssuerDatesFilter(db_helper)) \
-        .connect(FillInIssuerDataFilter()) \
-        .connect(CombineAndSaveFilter(db_helper))
-
-    start_time = datetime.now()
-    await pipeline.execute(url, issuer_urls)
-    end_time = datetime.now()
-
-    elapsed_time = end_time - start_time
-    print(f"Total execution time: {elapsed_time}")
-
-
 class IssuerCollector:
 
     def __init__(self, db_connection_string):
@@ -292,4 +269,7 @@ class IssuerCollector:
             .connect(CombineAndSaveFilter(self.db_helper))
 
     def run(self):
-        asyncio.run(self.pipeline.execute(self.url, self.issuer_urls))
+        try:
+            asyncio.run(self.pipeline.execute(self.url, self.issuer_urls))
+        except Exception as e:
+            print(f"An exception occurred while collecting issuer data: {e}")

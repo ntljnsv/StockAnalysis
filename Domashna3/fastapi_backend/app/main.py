@@ -9,7 +9,7 @@ app = FastAPI()
 
 scheduler = AsyncIOScheduler()
 
-db_connection_string = "postgresql+psycopg2://sa:p123@postgres:5432/Makcii_DB"
+db_connection_string = "postgresql+psycopg2://sa:p123@localhost:5432/Makcii_DB"
 sentiment_analysis = SentimentAnalysis(db_connection_string=db_connection_string)
 issuer_collector = IssuerCollector(db_connection_string=db_connection_string)
 
@@ -23,7 +23,7 @@ def schedule_issuer_collecting():
 
 
 scheduler.add_job(schedule_issuer_collecting, 'cron', hour=10, minute=0)
-scheduler.add_job(schedule_sentiment_analysis, 'cron', hour=10, minute=0)
+scheduler.add_job(schedule_sentiment_analysis, 'cron', hour=10, minute=10)
 
 
 def job_listener(event):

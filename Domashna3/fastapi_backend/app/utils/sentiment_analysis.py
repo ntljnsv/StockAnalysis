@@ -263,6 +263,8 @@ class SentimentAnalysis:
         self.pipeline = Pipeline(self.db_connection_string)
 
     def run(self):
-        asyncio.run(self.pipeline.run())
-
+        try:
+            asyncio.run(self.pipeline.run())
+        except Exception as e:
+            print(f"An exception occurred during sentiment analysis: {e}")
 
