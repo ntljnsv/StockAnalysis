@@ -22,5 +22,7 @@ public class Issuer {
     @JsonIgnore
     private List<DayData> days;
 
+		@Column(name = "current_recommendation")
+		private String currentRecommendation;
 
 }
