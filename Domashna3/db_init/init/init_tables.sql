@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS issuers (
     issuer_name varchar(50) primary key,
-		current_recommendation varchar(10) default 'no_data'
+		current_recommendation varchar(10) default 'no_data' NOT NULL
 );
 
 
@@ -27,8 +27,24 @@ CREATE TABLE IF NOT EXISTS day_data (
     turnover float,
     total_turnover float,
     
-    CONSTRAINT fk_issuer FOREIGN KEY (issuer_name) REFERENCES Issuers(issuer_name)
+    CONSTRAINT fk_issuer FOREIGN KEY (issuer_name) REFERENCES issuers(issuer_name)
 );
+
+CREATE TABLE IF NOT EXISTS users (
+	id serial primary key,
+	username varchar(255) UNIQUE NOT NULL,
+  password varchar(255) NOT NULL
+)
+
+
+CREATE TABLE IF NOT EXISTS user_watch_list(
+	user_id bigint,
+	issuer_name varchar(50),
+	
+	CONSTRAINT pk_watch_list PRIMARY KEY (user_id, issuer_name),
+	CONSTRAINT fk_issuer_name FOREIGN KEY (issuer_name) REFERENCES issuers(issuer_name),
+	CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+)
 
 
 -- Day Data Table Indexes
