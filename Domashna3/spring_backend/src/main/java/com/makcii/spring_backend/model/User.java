@@ -1,41 +1,73 @@
 package com.makcii.spring_backend.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import lombok.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Data
-@Table(name = "logged_user")
+@Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToMany
-    private List<Issuer> issuers;
+    @JoinTable(
+            name = "user_watch_list",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "issuer_name")
+    )
+    @JsonIgnore
+    private List<Issuer> watchList;
 
-    @Column(unique = true)
+    @Column(name="username",unique = true)
     private String username;
+
+    @Column(name="password")
     private String password;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.issuers = new ArrayList<>();
+        this.watchList = new ArrayList<>();
     }
 
-    public User() {
-        this.issuers = new ArrayList<>();
-        this.username = "";
-        this.password = "";
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Issuer> getWatchList() {
+        return watchList;
+    }
+
+    public void setWatchList(List<Issuer> watchList) {
+        this.watchList = watchList;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
