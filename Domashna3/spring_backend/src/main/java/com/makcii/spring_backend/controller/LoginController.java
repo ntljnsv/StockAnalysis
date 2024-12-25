@@ -1,8 +1,6 @@
 package com.makcii.spring_backend.controller;
 
 import com.makcii.spring_backend.config.JwtUtils;
-import com.makcii.spring_backend.model.User;
-import com.makcii.spring_backend.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,21 +9,23 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/login")
 @CrossOrigin(origins="*")
 public class LoginController {
 
-    private final UserService userService;
     private final AuthenticationManager authenticationManager;
 
-    public LoginController(UserService userService, AuthenticationManager authenticationManager) {
-        this.userService = userService;
+    public LoginController(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
+    @PostMapping
+    public ResponseEntity<String> login(@RequestBody Map<String, String> credentials) {
+        String username = credentials.get("username");
+        String password = credentials.get("password");
         try {
             Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(username, password));
@@ -39,4 +39,5 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials: " + e.getMessage());
         }
     }
+
 }

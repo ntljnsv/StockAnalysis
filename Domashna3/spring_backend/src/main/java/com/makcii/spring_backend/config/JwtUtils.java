@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class JwtUtils {
-    private static final String SECRET_KEY = "secret-key";
+    private static final String SECRET_KEY = "eyJhbGciOiJIUzUxMiJ9ew0KICAic3ViIjogIjEyMzQ1Njc4OTAiLA0KICAibmFtZSI6ICJBbmlzaCBOYXRoIiwNCiAgImlhdCI6IDE1MTYyMzkwaMjINCn0C8BclxP976ZGtshJwqvMoaYxutZrO9NGn9f1DPRrUda5koXYKaHMQsyafPGRnTeI4RR1dgoGe5CGaFlwmtoXyQaa";
 
     public static String generateToken(Authentication authentication) {
         return Jwts.builder()
