@@ -6,6 +6,8 @@ import com.makcii.spring_backend.model.exceptions.UserAlreadyExistsException;
 import com.makcii.spring_backend.model.exceptions.UserNotFoundException;
 import com.makcii.spring_backend.repository.UserRepository;
 import com.makcii.spring_backend.services.UserService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -40,18 +42,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+
     @Override
-    public User login(String username, String password) {
-        User user = this.userRepository.findByUsername(username)
-                .orElseThrow(UserNotFoundException::new);
-
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new UserNotFoundException();
-        }
-
-        return user;
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
     }
-
 }
 
 
