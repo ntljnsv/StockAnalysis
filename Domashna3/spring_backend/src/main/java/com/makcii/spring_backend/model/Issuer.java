@@ -1,5 +1,6 @@
 package com.makcii.spring_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,8 +11,6 @@ import java.util.List;
 @Table(name = "issuers")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class Issuer {
 
     @Id
@@ -22,7 +21,30 @@ public class Issuer {
     @JsonIgnore
     private List<DayData> days;
 
-		@Column(name = "current_recommendation")
-		private String currentRecommendation;
+    @Column(name = "current_recommendation")
+    private String currentRecommendation;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<DayData> getDays() {
+        return days;
+    }
+
+    public void setDays(List<DayData> days) {
+        this.days = days;
+    }
+
+    public String getCurrentRecommendation() {
+        return currentRecommendation;
+    }
+
+    public void setCurrentRecommendation(String currentRecommendation) {
+        this.currentRecommendation = currentRecommendation;
+    }
 }

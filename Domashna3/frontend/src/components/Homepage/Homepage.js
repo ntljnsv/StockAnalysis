@@ -16,7 +16,7 @@ const Homepage = () => {
 
     return (
         <div className="homepage">
-            <h1>Издавачи</h1>
+            <h1 className={"home-h1"}>Издавачи</h1>
             <div className="issuerGrid">
                 {issuers && issuers.map((issuer, index) => (
                     <div className="issuerCard" key={index}>
