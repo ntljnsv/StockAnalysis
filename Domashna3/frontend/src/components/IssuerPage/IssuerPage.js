@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import StockPriceChart from "../charts/StockPriceChart";
-import { getStockDataForIssuer } from "../../api/dataService";
+import { getStockDataForIssuer, addIssuerToWatchlist } from "../../api/dataService"; // Assuming you have the API function for adding to the watchlist
 import "./IssuerPage.css";
 
 const IssuerPage = () => {
     const { issuerName } = useParams();
     const [stockData, setStockData] = useState([]);
+    const [isAddedToWatchlist, setIsAddedToWatchlist] = useState(false);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         const fetchStockData = async () => {
-            const data = await getStockDataForIssuer(issuerName);
-            setStockData(data);
+            try {
+                const data = await getStockDataForIssuer(issuerName);
+                setStockData(data);
+            } catch (error) {
+                console.error('Error fetching stock data:', error);
+                setError('Failed to load stock data.');
+            }
         };
         fetchStockData();
     }, [issuerName]);
@@ -29,17 +36,28 @@ const IssuerPage = () => {
             return new Date(dateA) - new Date(dateB);
         });
 
+    const handleAddToWatchlist = async () => {
+        try {
+            const response = await addIssuerToWatchlist('user1', issuerName);
+            if (response) {
+                setIsAddedToWatchlist(true);
+            }
+        } catch (error) {
+            console.error('Error adding issuer to watchlist:', error);
+            setError('Failed to add to watchlist.');
+        }
+    };
 
     return (
-        <div className="issuerPage">
-            <h1>Историски податоци за {issuerName}</h1>
+        <div className="issuer-page">
+            <h1 className={"issuer-h1"}>Историски податоци за {issuerName}</h1>
 
-            <div className="card">
-                <h2>Последна цена</h2>
+            <div className="issuer-card">
+                <h2 className={".issuer-h1"}>Последна цена</h2>
                 <StockPriceChart data={chartData} />
             </div>
 
-            <div className="card">
+            <div className="issuer-card">
                 <h2>Податоци</h2>
                 <table className="styledTable">
                     <thead>
@@ -71,6 +89,17 @@ const IssuerPage = () => {
                     ))}
                     </tbody>
                 </table>
+            </div>
+
+            <div className="mt-3">
+                <button
+                    className={`btn ${isAddedToWatchlist ? 'btn-secondary' : 'btn-primary'}`}
+                    onClick={handleAddToWatchlist}
+                    disabled={isAddedToWatchlist}
+                >
+                    {isAddedToWatchlist ? 'Added to Watchlist' : 'Add to Watchlist'}
+                </button>
+                {error && <div className="alert alert-danger mt-2">{error}</div>}
             </div>
         </div>
     );

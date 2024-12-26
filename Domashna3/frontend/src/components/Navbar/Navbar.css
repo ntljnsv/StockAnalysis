@@ -27,5 +27,14 @@
 }
 
 .navbar-nav .nav-link.active {
-    color: #007bff!important;
+    color: #007bff !important;
+}
+
+.navbar .btn {
+    margin-right: 10px;
+}
+
+.profile-icon {
+    font-size: 25px;
+    padding: 5px;
 }
