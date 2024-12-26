@@ -45,6 +45,16 @@ const Navbar = () => {
                                 За нас
                             </NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink
+                                to="/tech"
+                                className={({ isActive }) =>
+                                    isActive ? 'nav-link active' : 'nav-link'
+                                }
+                            >
+                                Техничка анализа
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
             </div>
