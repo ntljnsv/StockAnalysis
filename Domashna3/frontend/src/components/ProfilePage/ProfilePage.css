@@ -1,0 +1,45 @@
+.list-group-item {
+    font-size: 1rem;
+    background: #fff;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list-group-item:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.text-warning {
+    cursor: pointer;
+}
+
+.badge {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+}
+
+.bg-success {
+    background-color: #28a745;
+}
+
+.bg-danger {
+    background-color: #dc3545;
+}
+
+.bg-warning {
+    background-color: #ffc107;
+}
+
+.list-group-item .fa-star {
+    transition: color 0.2s ease;
+}
+
+.profile-user {
+    color: #fc1a52!important;
+
+}
