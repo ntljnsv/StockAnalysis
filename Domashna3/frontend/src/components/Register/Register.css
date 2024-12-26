@@ -1,4 +1,4 @@
-.container {
+.reg-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,7 @@
     max-width: 100% !important;
 }
 
-.card {
+.reg-card {
     width: 400px;
     padding: 20px;
     border-radius: 8px;
@@ -15,19 +15,19 @@
     background-color: #ffffff;
 }
 
-.form-title {
+.reg-form-title {
     font-size: 24px;
     margin-bottom: 20px;
     color: black !important;
     text-align: center;
 }
 
-.form {
+.reg-form {
     display: flex;
     flex-direction: column;
 }
 
-.input {
+.reg-input {
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #d1d5db;
@@ -36,7 +36,7 @@
     outline: none;
 }
 
-.button {
+.reg-button {
     padding: 10px;
     background-color: black;
     color: #ffffff;
@@ -48,12 +48,12 @@
     transition: background-color 0.2s ease;
 }
 
-.button:hover {
+.reg-button:hover {
     background-color: #041736;
 }
 
 
-.error {
+.reg-error {
     color: #7f1d1d;
     font-size: 14px;
     margin-top: 10px;
@@ -63,7 +63,7 @@
     border-radius: 4px;
 }
 
-.success {
+.reg-success {
     color: #15803d;
     font-size: 14px;
     margin-top: 10px;
@@ -73,11 +73,11 @@
     border-radius: 4px;
 }
 
-img {
+.reg-img {
     width: 250px !important;
 }
 
-.img-container {
+.reg-img-container {
     width: 100%;
     display: flex;
     justify-content: center;

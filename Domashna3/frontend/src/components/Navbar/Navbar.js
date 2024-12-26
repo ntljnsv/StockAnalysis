@@ -1,5 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faUser} from "@fortawesome/free-solid-svg-icons";
+import LogoutButton from './LogoutBtn';
 import logo from '../../assets/logo.jpg';
 import './Navbar.css';
 
@@ -28,7 +31,7 @@ const Navbar = () => {
                         <li className="nav-item">
                             <NavLink
                                 to="/"
-                                className={({ isActive }) =>
+                                className={({isActive}) =>
                                     isActive ? 'nav-link active' : 'nav-link'
                                 }
                             >
@@ -38,7 +41,7 @@ const Navbar = () => {
                         <li className="nav-item">
                             <NavLink
                                 to="/about"
-                                className={({ isActive }) =>
+                                className={({isActive}) =>
                                     isActive ? 'nav-link active' : 'nav-link'
                                 }
                             >
@@ -46,6 +49,12 @@ const Navbar = () => {
                             </NavLink>
                         </li>
                     </ul>
+                    <div className="ms-auto d-flex align-items-center">
+                        <NavLink to="/profile" className="me-3 text-decoration-none">
+                            <FontAwesomeIcon icon={faUser} size="lg" className="text-dark profile-icon" />
+                        </NavLink>
+                        <LogoutButton/>
+                    </div>
                 </div>
             </div>
         </nav>

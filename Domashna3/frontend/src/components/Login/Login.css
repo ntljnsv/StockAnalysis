@@ -1,6 +1,6 @@
 /* LoginPage.css */
 
-.container {
+.login-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,7 +9,7 @@
     width: 100% !important;
 }
 
-.card {
+.login-card {
     width: 400px;
     padding: 20px;
     border-radius: 8px;
@@ -17,19 +17,19 @@
     background-color: #ffffff;
 }
 
-.form-title {
+.login-form-title {
     font-size: 24px;
     margin-bottom: 20px;
     color: black !important;
     text-align: center;
 }
 
-.form {
+.login-form {
     display: flex;
     flex-direction: column;
 }
 
-.input {
+.login-input {
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #d1d5db;
@@ -38,7 +38,7 @@
     outline: none;
 }
 
-.button {
+.login-button {
     padding: 10px;
     background-color: black;
     color: #ffffff;
@@ -50,15 +50,15 @@
     transition: background-color 0.2s ease;
 }
 
-.button:hover {
+.login-button:hover {
     background-color: #041736;
 }
 
-.button-error {
+.login-button-error {
     background-color: #7f1d1d;
 }
 
-.error {
+.login-error {
     color: #7f1d1d;
     font-size: 14px;
     margin-top: 10px;
@@ -68,11 +68,11 @@
     border-radius: 4px;
 }
 
-img {
+.login-img {
     width: 250px !important;
 }
 
-.img-container {
+.login-img-container {
     width: 100%;
     display: flex;
     justify-content: center;

@@ -21,31 +21,31 @@ const Login = () => {
     };
 
     return (
-        <div className={'container'} >
-            <div className={'card'} >
-                <div className={'img-container'}>
-                    <img src={logo} alt="Logo"/>
+        <div className={'login-container'} >
+            <div className={'login-card'} >
+                <div className={'login-img-container'}>
+                    <img src={logo} alt="Logo" className={"login-img"}/>
                 </div>
-                <h2 className={'form-title'} >Најавете се</h2>
-                {error && <p className={'error'} >{error}</p>}
-                <form onSubmit={handleSubmit} className={'form'} >
+                <h2 className={'login-form-title'} >Најавете се</h2>
+                {error && <p className={'login-error'} >{error}</p>}
+                <form onSubmit={handleSubmit} className={'login-form'} >
                     <input
                         type="text"
                         placeholder="Корисничко име"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className={'input'}
+                        className={'login-input'}
                     />
                     <input
                         type="password"
                         placeholder="Лозинка"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className={'input'}
+                        className={'login-input'}
                     />
                     <button
                         type="submit"
-                        className={`button ${error ? 'button-error' : ''}`}
+                        className={`login-button ${error ? 'login-button-error' : ''}`}
                     >
                         Најави се
                     </button>

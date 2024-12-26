@@ -6,6 +6,7 @@ import IssuerPage from "./components/IssuerPage/IssuerPage";
 import About from "./components/About/About";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
+import ProfilePage from "./components/ProfilePage/ProfilePage";
 
 
 const PrivateRoute = ({children}) => {
@@ -28,6 +29,7 @@ const AppRoutes = () => {
                     <Route path="/about" element={<About/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/register" element={<Register/>}/>
+                    <Route path="/profile" element={<ProfilePage/>}/>
                 </Routes>
             </div>
         </>

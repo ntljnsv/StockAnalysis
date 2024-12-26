@@ -45,22 +45,22 @@ const RegisterPage = () => {
     };
 
     return (
-        <div className={'container'}>
-            <div className={'card'}>
-                <div className={'img-container'}>
-                    <img src={logo} alt="Logo"/>
+        <div className={'reg-container'}>
+            <div className={'reg-card'}>
+                <div className={'reg-img-container'}>
+                    <img src={logo} alt="Logo" className={"reg-img"}/>
                 </div>
-                <h2 className={'form-title'}>Креирајте профил</h2>
-                {error && <p className={'error'}>{error}</p>}
-                {success && <p className={'success'}>{success}</p>}
-                <form onSubmit={handleSubmit} className={'form'}>
+                <h2 className={'reg-form-title'}>Креирајте профил</h2>
+                {error && <p className={'reg-error'}>{error}</p>}
+                {success && <p className={'reg-success'}>{success}</p>}
+                <form onSubmit={handleSubmit} className={'reg-form'}>
                     <input
                         type="text"
                         name="username"
                         placeholder="Корисничко име"
                         value={formData.username}
                         onChange={handleChange}
-                        className={'input'}
+                        className={'reg-input'}
                         required
                     />
                     <input
@@ -69,7 +69,7 @@ const RegisterPage = () => {
                         placeholder="Лозинка"
                         value={formData.password}
                         onChange={handleChange}
-                        className={'input'}
+                        className={'reg-input'}
                         required
                     />
                     <input
@@ -78,10 +78,10 @@ const RegisterPage = () => {
                         placeholder="Повторена лозинка"
                         value={formData.repeatedPassword}
                         onChange={handleChange}
-                        className={'input'}
+                        className={'reg-input'}
                         required
                     />
-                    <button type="submit" className={'button'}>
+                    <button type="submit" className={'reg-button'}>
                         Регистрирај се
                     </button>
                 </form>
