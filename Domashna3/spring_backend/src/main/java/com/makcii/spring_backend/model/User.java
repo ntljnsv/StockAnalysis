@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "makcii_users")
 @AllArgsConstructor
 public class User implements UserDetails {
 

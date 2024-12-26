@@ -1,11 +1,8 @@
 package com.makcii.spring_backend.controller;
 
-import com.makcii.spring_backend.model.User;
 import com.makcii.spring_backend.model.dto.WatchlistDto;
 import com.makcii.spring_backend.services.UserService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,18 +26,20 @@ public class UserController {
     }
 
     @PostMapping("/{username}/watchlist/add")
-    public ResponseEntity<User> addIssuerToWatchlist (@PathVariable String username,
+    public ResponseEntity<List<WatchlistDto>> addIssuerToWatchlist (@PathVariable String username,
                                                       @RequestBody Map<String, String> requestBody) {
 
         String issuerName = requestBody.get("issuerName");
 
-        return ResponseEntity.ok(userService.addIssuerToWatchlist(username, issuerName));
+        List<WatchlistDto> data = userService.addIssuerToWatchlist(username, issuerName);
+        return ResponseEntity.ok(data);
     }
 
     @DeleteMapping("/{username}/watchlist/remove")
-    public ResponseEntity<User> removeIssuerFromWatchlist(@PathVariable String username,
+    public ResponseEntity<List<WatchlistDto>> removeIssuerFromWatchlist(@PathVariable String username,
                                                           @RequestParam String issuerName) {
-        return ResponseEntity.ok(userService.removeIssuerFromWatchlist(username, issuerName));
+        List<WatchlistDto> data = userService.removeIssuerFromWatchlist(username, issuerName);
+        return ResponseEntity.ok(data);
     }
 
 }

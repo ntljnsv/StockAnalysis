@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User addIssuerToWatchlist(String username, String issuerName) {
+    public List<WatchlistDto> addIssuerToWatchlist(String username, String issuerName) {
 
         User user = userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
 
@@ -76,11 +76,11 @@ public class UserServiceImpl implements UserService {
         user.getWatchList().add(issuer);
         userRepository.save(user);
 
-        return user;
+        return getUserWatchlist(username);
     }
 
     @Override
-    public User removeIssuerFromWatchlist(String username, String issuerName) {
+    public List<WatchlistDto> removeIssuerFromWatchlist(String username, String issuerName) {
 
         User user = userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
 
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
         user.getWatchList().remove(issuer);
         userRepository.save(user);
 
-        return user;
+        return getUserWatchlist(username);
     }
 
 
