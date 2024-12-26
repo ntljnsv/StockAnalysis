@@ -7,9 +7,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -27,7 +25,7 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "issuer_name")
     )
     @JsonIgnore
-    private List<Issuer> watchList;
+    private Set<Issuer> watchList;
 
     @Column(name="username",unique = true)
     private String username;
@@ -40,7 +38,7 @@ public class User implements UserDetails {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.watchList = new ArrayList<>();
+        this.watchList = new HashSet<>();
     }
 
     public Long getId() {
@@ -51,11 +49,11 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public List<Issuer> getWatchList() {
+    public Set<Issuer> getWatchList() {
         return watchList;
     }
 
-    public void setWatchList(List<Issuer> watchList) {
+    public void setWatchList(Set<Issuer> watchList) {
         this.watchList = watchList;
     }
 
