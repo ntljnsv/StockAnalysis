@@ -4,17 +4,19 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import './ProfilePage.css';
-import { getUserWatchlist, removeIssuerFromWatchlist } from '../../api/dataService'; // Assuming you import the functions
+import { getUserWatchlist, removeIssuerFromWatchlist } from '../../api/dataService';
 
 const ProfilePage = () => {
-    const [user, setUser] = useState({ username: 'user1', watchlist: [] });
+    const user = localStorage.getItem("username");
+    const [watchlist, setWatchlist] = useState([]);
     const [hoveredStock, setHoveredStock] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const data = await getUserWatchlist('user1');
-                setUser({ username: 'user1', watchlist: data });
+                setWatchlist(data);
+                console.log(data);
             } catch (error) {
                 console.error('Error fetching user watchlist:', error);
             }
@@ -24,13 +26,11 @@ const ProfilePage = () => {
 
     const handleRemoveFromWatchlist = async (issuer) => {
         try {
-            setUser((prevState) => ({
-                ...prevState,
-                watchlist: prevState.watchlist.filter((item) => item.issuerName !== issuer.issuerName),
-            }));
+            setWatchlist((prevState) =>
+                prevState.filter((item) => item.issuerName !== issuer.issuerName)
+            );
 
-            const updatedUser = await removeIssuerFromWatchlist('user1', issuer.issuerName);
-            setUser(updatedUser);
+            await removeIssuerFromWatchlist('user1', issuer.issuerName);
         } catch (error) {
             console.error('Error removing issuer from watchlist:', error);
         }
@@ -56,7 +56,7 @@ const ProfilePage = () => {
         <div className="container mt-5">
             <div className="profile-header text-center mb-4">
                 <FontAwesomeIcon icon={faUserCircle} size="6x" className="profile-user" />
-                <h2 className="mt-3">Добредојде, {user.username}!</h2>
+                <h2 className="mt-3">Добредојде, {user}!</h2>
                 <p className="text-muted">Погледни ја твојата листа на издавачи</p>
             </div>
 
@@ -64,9 +64,9 @@ const ProfilePage = () => {
                 <div className="card-body">
                     <h5 className="card-title">Листа на издавачи</h5>
                     <p className="card-text">Следи ја состојбата на твоите омилени издавачи:</p>
-                    {user.watchlist && user.watchlist.length > 0 ? (
+                    { watchlist && watchlist.length > 0 ? (
                         <ul className="list-group list-group-flush">
-                            {user.watchlist.map((issuer, index) => (
+                            { watchlist.map((issuer, index) => (
                                 <li
                                     key={index}
                                     className="list-group-item d-flex justify-content-between align-items-center"
@@ -75,8 +75,8 @@ const ProfilePage = () => {
                                         <strong>{issuer.issuerName}</strong> - {issuer.lastTransactionPrice.toFixed(2)} ден.
                                     </div>
                                     <div className="d-flex align-items-center">
-                                        <span className={`badge bg-${getRecommendationClass(issuer.currentRecommendation)} me-3`}>
-                                            {issuer.currentRecommendation === 'no_data' ? 'Hold' : issuer.currentRecommendation}
+                                        <span className={`badge bg-${getRecommendationClass(issuer.recommendation)} me-3`}>
+                                            {issuer.recommendation === 'no_data' ? 'Hold' : issuer.recommendation}
                                         </span>
 
                                         <FontAwesomeIcon

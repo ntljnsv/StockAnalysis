@@ -4,10 +4,12 @@ import api from "./api";
 export const login = async (username, password) => {
     try {
         const response = await api.post('/login', { username, password });
-        console.log(response)
-        const token = response.data.token;
-        localStorage.setItem('token', token);
-        return response.data;
+        if (response.status === 200) {
+            const token = response.data.token;
+            localStorage.setItem('token', token);
+            localStorage.setItem("username", username);
+            return response.data;
+        }
     } catch (error) {
         throw error.response ? error.response.data : new Error('Login failed');
     }
@@ -17,7 +19,9 @@ export const login = async (username, password) => {
 export const register = async (username, password, repeatedPassword) => {
     try {
         const response = await api.post('/register', { username, password, repeatedPassword });
-        return response.data;
+        if (response.status === 200) {
+            return response.data;
+        }
     } catch (error) {
         throw error.response ? error.response.data : new Error('Registration failed');
     }
@@ -26,4 +30,5 @@ export const register = async (username, password, repeatedPassword) => {
 
 export const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
 };

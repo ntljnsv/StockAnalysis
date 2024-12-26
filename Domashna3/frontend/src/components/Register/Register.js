@@ -32,9 +32,11 @@ const RegisterPage = () => {
         }
 
         try {
-            await register(formData.username, formData.password, formData.repeatedPassword);
-            setSuccess('Успешно се регистриравте! Ве пренасочуваме кон страната за најава...');
-            setTimeout(() => navigate('/login'), 2000);
+            const response = await register(formData.username, formData.password, formData.repeatedPassword);
+            if (response) {
+                setSuccess('Успешно се регистриравте! Ве пренасочуваме кон страната за најава...');
+                setTimeout(() => navigate('/login'), 2000);
+            }
         } catch (err) {
             if (err.response && err.response.data) {
                 setError(err.response.data);

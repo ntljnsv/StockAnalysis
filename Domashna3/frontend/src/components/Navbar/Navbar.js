@@ -1,12 +1,25 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUser} from "@fortawesome/free-solid-svg-icons";
 import LogoutButton from './LogoutBtn';
 import logo from '../../assets/logo.jpg';
 import './Navbar.css';
+import {Button} from "react-bootstrap";
 
 const Navbar = () => {
+
+    const navigate = useNavigate();
+    const token = localStorage.getItem("token");
+
+    const handleLogin = () => {
+        navigate('/login');
+    }
+
+    const handleRegister = () => {
+        navigate('/register');
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
@@ -50,10 +63,12 @@ const Navbar = () => {
                         </li>
                     </ul>
                     <div className="ms-auto d-flex align-items-center">
-                        <NavLink to="/profile" className="me-3 text-decoration-none">
+                        {token && <NavLink to="/profile" className="me-3 text-decoration-none">
                             <FontAwesomeIcon icon={faUser} size="lg" className="text-dark profile-icon" />
-                        </NavLink>
-                        <LogoutButton/>
+                        </NavLink>}
+                        {token && <LogoutButton/>}
+                        {!token && <Button className={'btn-primary'} onClick={handleLogin}>Најави се</Button>}
+                        {!token && <Button className={'btn-dark'} onClick={handleRegister}>Регистрирај се</Button>}
                     </div>
                 </div>
             </div>

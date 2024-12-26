@@ -13,8 +13,10 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await login(username, password);
-            navigate('/');
+            const response = await login(username, password);
+            if (response) {
+                navigate('/');
+            }
         } catch (err) {
             setError('Не валидно корисничко име или лозинка');
         }
