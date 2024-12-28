@@ -86,6 +86,7 @@ const RegisterPage = () => {
                     <button type="submit" className={'reg-button'}>
                         Регистрирај се
                     </button>
+                    <p className={"register-reroute"}>Веќе сте регистрирани? <a href={"/login"}>Најавете се!</a></p>
                 </form>
             </div>
         </div>
