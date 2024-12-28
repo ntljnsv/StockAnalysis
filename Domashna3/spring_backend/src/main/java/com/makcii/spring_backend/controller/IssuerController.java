@@ -1,12 +1,15 @@
 package com.makcii.spring_backend.controller;
 
 import com.makcii.spring_backend.model.Issuer;
+import com.makcii.spring_backend.model.dto.IssuerPriceDto;
+import com.makcii.spring_backend.model.dto.IssuerStatsDto;
 import com.makcii.spring_backend.services.IssuerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/issuers")
@@ -29,4 +32,13 @@ public class IssuerController {
         return ResponseEntity.ok(issuerService.getIssuerByName(name));
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<IssuerPriceDto>> getIssuersAndLatestPrices(@RequestParam String searchTerm) {
+        return ResponseEntity.ok(issuerService.getIssuersAndLatestPrices(searchTerm));
+    }
+
+    @GetMapping("/top")
+    public ResponseEntity<Map<String, List<IssuerStatsDto>>> getTopIssuersYesterday() {
+        return ResponseEntity.ok(issuerService.getTopIssuersYesterday());
+    }
 }
