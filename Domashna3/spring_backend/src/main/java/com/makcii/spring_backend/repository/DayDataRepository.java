@@ -22,4 +22,7 @@ public interface DayDataRepository extends JpaRepository<DayData, Long> {
 
     @Query("SELECT d FROM DayData d WHERE d.issuer.name = :issuerName ORDER BY d.date DESC")
     List<DayData> findTop100ByIssuerNameOrderByDateDesc(@Param("issuerName") String issuerName, Pageable pageable);
+
+    @Query("SELECT d FROM DayData d WHERE d.issuer.name = :issuerName ORDER BY d.date DESC")
+    List<DayData> findRecentDataByIssuer(@Param("issuerName") String issuerName, Pageable pageable);
 }
