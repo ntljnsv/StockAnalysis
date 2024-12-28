@@ -63,12 +63,12 @@ const Navbar = () => {
                         </li>
                         <li className="nav-item">
                             <NavLink
-                                to="/tech"
+                                to="/issuers"
                                 className={({ isActive }) =>
                                     isActive ? 'nav-link active' : 'nav-link'
                                 }
                             >
-                                Техничка анализа
+                                Издавачи
                             </NavLink>
                         </li>
                     </ul>

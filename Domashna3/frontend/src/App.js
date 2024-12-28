@@ -1,13 +1,14 @@
 import React from 'react';
 import {BrowserRouter as Router, Navigate, Route, Routes, useLocation} from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
-import Homepage from "./components/Homepage/Homepage";
+import Issuers from "./components/Issuers/Issuers";
 import IssuerPage from "./components/IssuerPage/IssuerPage";
 import About from "./components/About/About";
-import TechAnalysis from "./components/tech/tech";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
+import Footer from "./components/Footer/Footer";
+import Homepage from "./components/Homepage/Homepage";
 
 
 const PrivateRoute = ({children}) => {
@@ -30,10 +31,11 @@ const AppRoutes = () => {
                     <Route path="/about" element={<About/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/register" element={<Register/>}/>
-                    <Route path="/profile" element={<ProfilePage/>}/>
-                    <Route path="/tech" element={<TechAnalysis />} />
+                    <Route path="/profile" element={<PrivateRoute children={<ProfilePage/>}/>}/>
+                    <Route path="/issuers" element={<Issuers/>} />
                 </Routes>
             </div>
+            {!isAuthPage && <Footer/>}
         </>
     );
 }
