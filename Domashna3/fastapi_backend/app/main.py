@@ -1,9 +1,13 @@
-from fastapi import FastAPI
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
-from app.utils.sentiment_analysis import SentimentAnalysis
-from app.utils.issuers_data_collection import IssuerCollector
 import logging
+from typing import List
+
+from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from fastapi import FastAPI
+
+from app.service.prediction_service import PredictionService, DayData
+from app.utils.issuers_data_collection import IssuerCollector
+from app.utils.sentiment_analysis import SentimentAnalysis
 
 app = FastAPI()
 
@@ -44,3 +48,9 @@ async def startup():
 @app.get("/")
 def read_root():
     return {"message": "Hello, World!"}
+
+
+@app.post("/predict")
+def predict(day_data: List[DayData]):
+    prediction = PredictionService.predict(day_data)
+    return prediction
