@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import StockPriceVolumeChart from "../Charts/StockPriceChart";
 import PercentageChangeChart from "../Charts/PercentageChangeChart";
 import TurnoverChart from "../Charts/TurnoverChart";
-import {addIssuerToWatchlist, getLatest100Days, getIssuer} from "../../api/dataService";
+import {addIssuerToWatchlist, getLatest100Days, getIssuer, getIssuerPricePrediction} from "../../api/dataService";
 import { calculateIndicatorsForIssuer } from "../../utils/TechAnalysisUtil";
 import { getDate, formatDate } from "../../utils/DateUtils";
 import "./IssuerPage.css";
@@ -22,6 +22,7 @@ const IssuerPage = () => {
     const [monthSignal, setMonthSignal] = useState({});
     const [sentimentRecommendation, setSentimentRecommendation] = useState();
     const [monthlyIndicators, setMonthlyIndicators] = useState({});
+    const [pricePrediction, setPricePrediction] = useState(null);
 
 
 
@@ -63,12 +64,22 @@ const IssuerPage = () => {
 
         const fetchIssuerData = async () => {
             const data = await getIssuer(issuerName);
-            setSentimentRecommendation(data.currentRecommendation)
+            setSentimentRecommendation(data.currentRecommendation);
+        }
+
+        const getPrediction = async () => {
+            const data = await getIssuerPricePrediction(issuerName);
+            if(data && data.prediction) {
+                let pred = Number.parseFloat(data.prediction);
+                pred = pred.toFixed(2);
+                setPricePrediction(pred);
+            }
         }
 
         fetchIssuerData();
         fetchStockData();
         calculateIndicators();
+        getPrediction();
 
         console.log(weekSignal)
     }, []);
@@ -146,11 +157,7 @@ const IssuerPage = () => {
                         <div>
                             <h3>LSTM Анализа</h3>
                             <p className={"desc"}>LSTM предвидување за цената на акциите според историските податоци на издавачот</p>
-                            <p className={"prediction"}>{sentimentRecommendation
-                                ? sentimentRecommendation === 'no_data'
-                                    ? 'Hold'
-                                    : sentimentRecommendation
-                                : 'Loading...'}</p>
+                            <p className={"prediction"}>{pricePrediction ? pricePrediction : "Нема доволно нови податоци"}</p>
                         </div>
 
                     </div>

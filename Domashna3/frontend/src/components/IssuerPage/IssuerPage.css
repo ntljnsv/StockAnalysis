@@ -87,6 +87,8 @@
 
 .prediction {
     text-align: center!important;
+    font-weight: bold;
+    font-size: 25px;
 }
 
 .recommendation .badge {
