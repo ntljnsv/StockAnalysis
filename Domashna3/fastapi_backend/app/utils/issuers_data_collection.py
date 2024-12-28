@@ -1,13 +1,11 @@
-import os
-import re
-import random
-import aiohttp
 import asyncio
+import random
+import re
+from concurrent.futures import ThreadPoolExecutor
+import aiohttp
 import pandas as pd
 import psycopg2
 from lxml import etree
-from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor
 from sqlalchemy import create_engine
 from sqlalchemy import text
 

@@ -101,10 +101,21 @@ export const getIssuersAndLatestPrices = async (searchTerm) => {
 
 }
 
-
 export const getTopIssuersYesterday = async () => {
     try {
         const response = await api.get(`/issuers/top`);
+        if(response.status === 200) {
+            return response.data;
+        }
+        return null;
+    } catch (error) {
+        console.log('Could not top issuers:', error);
+    }
+}
+
+export const getIssuerPricePrediction = async (issuerName) => {
+    try {
+        const response = await api.get(`/predictions/${issuerName}`);
         if(response.status === 200) {
             return response.data;
         }
