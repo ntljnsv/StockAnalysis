@@ -14,9 +14,9 @@ const ProfilePage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getUserWatchlist('user1');
+                const data = await getUserWatchlist(user);
+                console.log(data)
                 setWatchlist(data);
-                console.log(data);
             } catch (error) {
                 console.error('Error fetching user watchlist:', error);
             }
@@ -29,8 +29,7 @@ const ProfilePage = () => {
             setWatchlist((prevState) =>
                 prevState.filter((item) => item.issuerName !== issuer.issuerName)
             );
-
-            await removeIssuerFromWatchlist('user1', issuer.issuerName);
+            await removeIssuerFromWatchlist(user, issuer.issuerName);
         } catch (error) {
             console.error('Error removing issuer from watchlist:', error);
         }
@@ -49,7 +48,7 @@ const ProfilePage = () => {
         if (recommendation === 'Buy') return 'success';
         if (recommendation === 'Sell') return 'danger';
         if (recommendation === 'no_data' || recommendation === 'Hold') return 'warning';
-        return 'secondary'; // fallback for any unexpected value
+        return 'secondary';
     };
 
     return (
@@ -62,7 +61,7 @@ const ProfilePage = () => {
 
             <div className="card shadow-lg">
                 <div className="card-body">
-                    <h5 className="card-title">Листа на издавачи</h5>
+                    <h4 className="card-title">Листа на издавачи</h4>
                     <p className="card-text">Следи ја состојбата на твоите омилени издавачи:</p>
                     { watchlist && watchlist.length > 0 ? (
                         <ul className="list-group list-group-flush">
@@ -72,7 +71,7 @@ const ProfilePage = () => {
                                     className="list-group-item d-flex justify-content-between align-items-center"
                                 >
                                     <div>
-                                        <strong>{issuer.issuerName}</strong> - {issuer.lastTransactionPrice.toFixed(2)} ден.
+                                        <strong><a className={"issuer-link"} href={`/issuer/${issuer.issuerName}`}>{issuer.issuerName}</a></strong> - {issuer.lastTransactionPrice.toFixed(2)} ден.
                                     </div>
                                     <div className="d-flex align-items-center">
                                         <span className={`badge bg-${getRecommendationClass(issuer.recommendation)} me-3`}>
@@ -93,7 +92,7 @@ const ProfilePage = () => {
                         </ul>
                     ) : (
                         <div className="alert alert-info" role="alert">
-                            You have no issuers in your watchlist. Start adding some today!
+                            Додадете нови издавачи во вашата листа на омилени!
                         </div>
                     )}
                 </div>

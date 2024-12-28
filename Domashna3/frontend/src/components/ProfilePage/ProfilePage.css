@@ -43,3 +43,12 @@
     color: #fc1a52!important;
 
 }
+
+.issuer-link {
+    text-decoration: none;
+    color: #7f1d1d;
+}
+
+.card-text {
+    font-size: 16px;
+}
