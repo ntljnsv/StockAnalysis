@@ -22,6 +22,7 @@ public class DayData {
     @JsonIgnore
     private Issuer issuer;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "date", nullable = false)
     private LocalDate date;
 

@@ -51,6 +51,7 @@ const Login = () => {
                     >
                         Најави се
                     </button>
+                    <p className={"login-reroute"}>Немате профил? <a href={"/register"}>Регистрирајте се!</a></p>
                 </form>
             </div>
         </div>

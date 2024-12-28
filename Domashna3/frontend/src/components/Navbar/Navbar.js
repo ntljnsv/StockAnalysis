@@ -61,6 +61,16 @@ const Navbar = () => {
                                 За нас
                             </NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink
+                                to="/issuers"
+                                className={({ isActive }) =>
+                                    isActive ? 'nav-link active' : 'nav-link'
+                                }
+                            >
+                                Издавачи
+                            </NavLink>
+                        </li>
                     </ul>
                     <div className="ms-auto d-flex align-items-center">
                         {token && <NavLink to="/profile" className="me-3 text-decoration-none">
