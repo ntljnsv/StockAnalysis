@@ -1,18 +1,16 @@
-.issuerPage {
-    max-width: 1200px;
+.issuer-page {
     margin: 20px auto;
     padding: 20px;
     font-family: Arial, sans-serif;
     color: #333;
 }
 
-h1 {
+.issuer-h1 {
     text-align: center;
-    margin-bottom: 30px;
-    color: #007bff;
+    font-weight: bold;
 }
 
-.card {
+.issuer-card {
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -20,7 +18,7 @@ h1 {
     padding: 20px;
 }
 
-h2 {
+.issuer-h2 {
     margin-bottom: 20px;
     font-size: 1.5rem;
     color: #444;
@@ -39,31 +37,103 @@ h2 {
     color: #fff;
 }
 
-.styledTable th,
-.styledTable td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-}
-
-.styledTable tbody tr:nth-of-type(odd) {
-    background-color: #f3f3f3;
-}
-
-.styledTable tbody tr:hover {
-    background-color: #f1f1f1;
-}
-
-.styledTable tbody td {
+.card h3 {
     text-align: center;
 }
 
-.card h2 {
-    text-align: center;
-    color: #007bff;
-}
-
-.issuerPage .card {
-    padding: 20px;
-    margin: 20px auto;
+.card {
+    padding: 20px 10px!important;
+    margin: 10px auto;
     width: 90%;
+    background-color: #f8f9fa!important;
+    border-radius: 8px;
+    border: none!important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
+
+.chart-recommendation{
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    width: 100%;
+}
+
+.charts {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    width: 100%;
+}
+
+.desc {
+    color: #797979;
+    font-size: 13px;
+    padding-top: 0;
+    margin-top: 0;
+    text-align: left;
+}
+
+.recommendation > div {
+    display: flex!important;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    padding: 0 10px!important;
+}
+
+
+.prediction {
+    text-align: center!important;
+}
+
+.recommendation .badge {
+    width: fit-content!important;
+    font-size: 25px;
+
+}
+
+.badge {
+    color: white!important;
+}
+
+.signal-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.signals-indicators {
+    font-weight: bold;
+    margin-top: 60px;
+}
+
+.signal-group {
+    width: 48%;
+}
+
+.signal-item {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.signal-item h3 {
+    margin-bottom: 0.5rem;
+}
+
+.signal-item p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: right;
+}
+

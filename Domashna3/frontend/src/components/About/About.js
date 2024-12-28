@@ -7,7 +7,7 @@ const About = () => {
             <h1 className="about-title">За Макции</h1>
             <p className="about-description">
                 Макции е веб апликација која ги обработува податоците за издавачите во последните 10 години, собрани од официјалната веб страница на Македонската Берза (
-                <a href="https://www.mse.mk/" target="_blank" rel="noopener noreferrer">
+                <a className={"about-a"} href="https://www.mse.mk/" target="_blank" rel="noopener noreferrer">
                     mse.mk
                 </a>
                 ). Нашата цел е да создадеме лесна и интуитивна алатка која ќе биде корисна за различни типови на корисници – од статистичари и актуари, до инвеститори и љубители на македонските компании.
