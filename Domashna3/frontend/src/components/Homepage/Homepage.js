@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getTopIssuersYesterday } from "../../api/dataService";
+import { getTopLatestIssuers } from "../../api/dataService";
 import BarChart from '../Charts/BarChart';
 import logo from "../../assets/logo.jpg";
 import './Homepage.css';
@@ -16,7 +16,7 @@ const Homepage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getTopIssuersYesterday();
+                const data = await getTopLatestIssuers();
                 setTopIssuers({
                     highestPrices: data.highestPrices || [],
                     lowestPrices: data.lowestPrices || [],
@@ -47,7 +47,7 @@ const Homepage = () => {
                     <div className="graph-card">
                         <h4>Топ 10 издавачи со највисока цена</h4>
                         {topIssuers.highestPrices && topIssuers.highestPrices.length > 0 ? (
-                            <BarChart data={topIssuers.highestPrices} label="Цена" barColor="rgba(75, 192, 192, 0.5)" valueType="price" />
+                            <BarChart data={topIssuers.highestPrices} label="Цена (ден.)" barColor="rgba(75, 192, 192, 0.5)" valueType="price" />
                         ) : (
                             <p>Нема достапни податоци за највисоки цени.</p>
                         )}
@@ -56,7 +56,7 @@ const Homepage = () => {
                     <div className="graph-card">
                         <h4>Топ 10 издавачи со најниска цена</h4>
                         {topIssuers.lowestPrices && topIssuers.lowestPrices.length > 0 ? (
-                            <BarChart data={topIssuers.lowestPrices} label="Цена" barColor="rgba(255, 99, 132, 0.5)" valueType="price" />
+                            <BarChart data={topIssuers.lowestPrices} label="Цена (ден.)" barColor="rgba(255, 99, 132, 0.5)" valueType="price" />
                         ) : (
                             <p>Нема достапни податоци за најниски цени.</p>
                         )}

@@ -101,7 +101,7 @@ export const getIssuersAndLatestPrices = async (searchTerm) => {
 
 }
 
-export const getTopIssuersYesterday = async () => {
+export const getTopLatestIssuers = async () => {
     try {
         const response = await api.get(`/issuers/top`);
         if(response.status === 200) {

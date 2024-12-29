@@ -39,13 +39,13 @@ public class IssuerServiceImpl implements IssuerService {
     }
 
     @Override
-    public Map<String, List<IssuerStatsDto>> getTopIssuersYesterday() {
+    public Map<String, List<IssuerStatsDto>> getTopLatestIssuers() {
         Map<String, List<IssuerStatsDto>> topIssuers = new HashMap<>();
         Pageable top10 = PageRequest.of(0, 10);
-
-        List<IssuerStatsDto> highestPrices = issuerRepository.getTopIssuersByHighestPriceYesterday(top10);
-        List<IssuerStatsDto> lowestPrices = issuerRepository.getTopIssuersByLowestPriceYesterday(top10);
-        List<IssuerStatsDto> highestVolume = issuerRepository.getTopIssuersByHighestVolumeYesterday(top10);
+        
+        List<IssuerStatsDto> highestPrices = issuerRepository.getTopIssuersByHighestLatestPrice(top10);
+        List<IssuerStatsDto> lowestPrices = issuerRepository.getTopIssuersByLowestLatestPrice(top10);
+        List<IssuerStatsDto> highestVolume = issuerRepository.getTopIssuersByHighestLatestVolume(top10);
 
         topIssuers.put("highestPrices", highestPrices);
         topIssuers.put("lowestPrices", lowestPrices);

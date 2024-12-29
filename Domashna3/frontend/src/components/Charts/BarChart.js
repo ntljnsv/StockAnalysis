@@ -21,7 +21,6 @@ const BarChart = ({ data, label, barColor = 'rgba(75, 192, 192, 0.5)', valueType
         ]
     });
 
-    // Chart options (display options)
     const chartOptions = {
         responsive: true,
         plugins: {

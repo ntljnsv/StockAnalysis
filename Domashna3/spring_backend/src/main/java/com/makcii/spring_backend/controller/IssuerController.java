@@ -38,7 +38,7 @@ public class IssuerController {
     }
 
     @GetMapping("/top")
-    public ResponseEntity<Map<String, List<IssuerStatsDto>>> getTopIssuersYesterday() {
-        return ResponseEntity.ok(issuerService.getTopIssuersYesterday());
+    public ResponseEntity<Map<String, List<IssuerStatsDto>>> getTopLatestIssuers() {
+        return ResponseEntity.ok(issuerService.getTopLatestIssuers());
     }
 }
