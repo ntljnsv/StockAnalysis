@@ -1,0 +1,15 @@
+fitz
+lxml
+pandas
+APScheduler
+fastapi
+numpy
+#~=2.2.1
+pydantic
+#keras
+#~=2.11.0
+tensorflow~=2.11.0
+aiohttp
+psycopg2
+joblib
+alchemy
