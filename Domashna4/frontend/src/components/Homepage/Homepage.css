@@ -1,0 +1,72 @@
+.home-page {
+    min-height: 100vh;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.app-logo {
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.graphs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+.graph-card {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 5px;
+    width: 30%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.graph-card:hover {
+    transform: translateY(-10px);
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.search-link-button {
+    margin-top: 60px;
+    background-color: #ff3c67;
+    padding: 12px 25px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.search-link-button:hover {
+    background-color: #b41438;
+}
+
