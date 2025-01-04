@@ -86,7 +86,6 @@ const IssuerPage = () => {
         calculateIndicators();
         getPrediction();
 
-        console.log(weekSignal)
     }, []);
 
 

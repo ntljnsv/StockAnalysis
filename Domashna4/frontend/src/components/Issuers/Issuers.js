@@ -25,7 +25,7 @@ const Issuers = () => {
             const data = await getIssuersAndLatestPrices(searchTerm);
             setIssuers(data);
         } catch (error) {
-            console.error('Error fetching issuers:', error);
+            console.log('Error fetching issuers:', error);
         } finally {
             setLoading(false);
         }

@@ -26,7 +26,7 @@ const Homepage = () => {
                     highestVolume: data.highestVolume || []
                 });
             } catch (error) {
-                console.error('Error fetching top issuers data:', error);
+                console.log('Error fetching top issuers data:', error);
             } finally {
                 setLoading(false);
             }

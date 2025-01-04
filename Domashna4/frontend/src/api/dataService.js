@@ -66,7 +66,6 @@ export const getLatest100Days = async (issuerName) => {
         if(response.status === 200) {
             return response.data;
         }
-        console.log(response)
         return null;
     } catch (error) {
         console.log('Error fetching issuer data for last 50 days:', error);

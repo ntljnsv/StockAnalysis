@@ -85,7 +85,7 @@ const generateSignal = (indicators) => {
     const williamsRValue = indicators.williamsR && indicators.williamsR.length > 0 ? indicators.williamsR[0] : null;
     const cciValue = indicators.cci && indicators.cci.length > 0 ? indicators.cci[0] : null;
 
-    
+
     const rsiBuy = rsiValue !== null && rsiValue < 30;
     const rsiSell = rsiValue !== null && rsiValue > 70;
 

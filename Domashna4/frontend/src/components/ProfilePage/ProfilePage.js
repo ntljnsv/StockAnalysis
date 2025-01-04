@@ -18,10 +18,9 @@ const ProfilePage = () => {
         const fetchData = async () => {
             try {
                 const data = await getUserWatchlist(user);
-                console.log(data)
                 setWatchlist(data);
             } catch (error) {
-                console.error('Error fetching user watchlist:', error);
+                console.log('Error fetching user watchlist:', error);
             }
         };
 
@@ -36,7 +35,7 @@ const ProfilePage = () => {
             );
             await removeIssuerFromWatchlist(user, issuer.issuerName);
         } catch (error) {
-            console.error('Error removing issuer from watchlist:', error);
+            console.log('Error removing issuer from watchlist:', error);
         }
     };
 
