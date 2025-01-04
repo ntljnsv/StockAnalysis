@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface IssuerService {
-    List<Issuer> listAllIssuers();
+    List<Issuer> getAllIssuers();
     Issuer getIssuerByName(String name);
     List<IssuerPriceDto> getIssuersAndLatestPrices(String searchTerm);
     Map<String, List<IssuerStatsDto>> getTopLatestIssuers();

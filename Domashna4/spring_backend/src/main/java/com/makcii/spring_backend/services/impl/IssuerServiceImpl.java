@@ -23,7 +23,7 @@ public class IssuerServiceImpl implements IssuerService {
     }
 
     @Override
-    public List<Issuer> listAllIssuers() {
+    public List<Issuer> getAllIssuers() {
         return issuerRepository.findAll();
     }
 

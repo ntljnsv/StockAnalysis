@@ -24,7 +24,7 @@ public class IssuerController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Issuer>> getAllStockData() {
-        return ResponseEntity.ok(issuerService.listAllIssuers());
+        return ResponseEntity.ok(issuerService.getAllIssuers());
     }
 
     @GetMapping("/{name}")
