@@ -17,10 +17,6 @@ public interface DayDataRepository extends JpaRepository<DayData, Long> {
             "WHERE d.issuer.name IN :issuerNames AND d.date = (SELECT MAX(d2.date) FROM DayData d2 WHERE d2.issuer = d.issuer)")
     List<WatchlistDto> getUserWatchlistData(@Param("issuerNames") List<String> issuerNames);
 
-//    List<DayData> findByIssuerNameAndDateBetween(String name, LocalDate startDate, LocalDate endDate);
-//
-//    @Query("SELECT d FROM DayData d WHERE d.issuer.name = :issuerName ORDER BY d.date DESC")
-//    List<DayData> findTop100ByIssuerNameOrderByDateDesc(@Param("issuerName") String issuerName, Pageable pageable);
 
     @Query("SELECT d FROM DayData d WHERE d.issuer.name = :issuerName ORDER BY d.date DESC")
     List<DayData> findRecentDataByIssuer(@Param("issuerName") String issuerName, Pageable pageable);
