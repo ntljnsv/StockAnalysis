@@ -15,12 +15,12 @@ import java.util.List;
 @RequestMapping(value = "/dayData")
 @Validated
 @CrossOrigin(origins="*")
-public class DayController {
+public class DayDataController {
 
     private final DayDataService dayService;
     private final WebClient webClient;
 
-    public DayController(DayDataService dayDataService, WebClient.Builder webClientBuilder) {
+    public DayDataController(DayDataService dayDataService, WebClient.Builder webClientBuilder) {
 
         this.dayService = dayDataService;
         this.webClient = webClientBuilder.baseUrl("http://localhost:8081/dayData/microservice").build();
