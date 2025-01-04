@@ -1,5 +1,6 @@
 package com.makcii.spring_backend.model.dto;
 
+
 public class PredictionDataDto {
 
     private Double lastTransactionPrice;

@@ -1,6 +1,5 @@
 package com.makcii.spring_backend.model.dto;
 
-
 import jakarta.validation.constraints.NotBlank;
 
 

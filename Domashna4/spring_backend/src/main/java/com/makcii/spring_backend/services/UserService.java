@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
+
 public interface UserService extends UserDetailsService {
     User register(String username, String password, String repeatPassword);
     List<WatchlistDto> getUserWatchlist(String username);

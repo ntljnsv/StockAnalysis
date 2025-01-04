@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+
 @RestController
 @RequestMapping("/login")
 @CrossOrigin(origins="*")
@@ -24,6 +25,7 @@ public class LoginController {
 
     @PostMapping
     public ResponseEntity<String> login(@RequestBody Map<String, String> credentials) {
+
         String username = credentials.get("username");
         String password = credentials.get("password");
         try {

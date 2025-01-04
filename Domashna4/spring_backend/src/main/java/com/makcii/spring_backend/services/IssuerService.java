@@ -7,6 +7,7 @@ import com.makcii.spring_backend.model.dto.IssuerStatsDto;
 import java.util.List;
 import java.util.Map;
 
+
 public interface IssuerService {
     List<Issuer> getAllIssuers();
     Issuer getIssuerByName(String name);

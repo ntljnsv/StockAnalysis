@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class DayDataServiceImpl implements DayDataService {
 
@@ -26,6 +27,7 @@ public class DayDataServiceImpl implements DayDataService {
 
     @Override
     public List<PredictionDataDto> getPredictionData(String issuerName, int lags) {
+
         Pageable pageable = PageRequest.of(0, lags);
         List<DayData> recentData = dayDataRepository.findRecentDataByIssuer(issuerName, pageable);
 

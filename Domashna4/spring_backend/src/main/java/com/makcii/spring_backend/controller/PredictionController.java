@@ -19,12 +19,14 @@ public class PredictionController {
     private final RestTemplate restTemplate;
 
     public PredictionController(DayDataService dayDataService, RestTemplateBuilder builder) {
+
         this.dayDataService = dayDataService;
         this.restTemplate = builder.build();
     }
 
     @GetMapping("/{issuerName}")
     public ResponseEntity<String> getPrediction(@PathVariable String issuerName) {
+
         try {
             List<PredictionDataDto> recentData = dayDataService.getPredictionData(issuerName, 5);
 

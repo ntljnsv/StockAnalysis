@@ -1,5 +1,6 @@
 package com.makcii.spring_backend.model.dto;
 
+
 public class IssuerStatsDto {
     private final String issuerName;
     private final Double price;

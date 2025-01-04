@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
+
 @Entity
 @Table(name = "makcii_users")
 @AllArgsConstructor

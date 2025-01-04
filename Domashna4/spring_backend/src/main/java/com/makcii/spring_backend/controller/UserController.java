@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(origins="*")
@@ -22,6 +23,7 @@ public class UserController {
 
     @GetMapping("/{username}/watchlist")
     public ResponseEntity<List<WatchlistDto>> getUserWatchlist (@PathVariable String username) {
+
         return ResponseEntity.ok(userService.getUserWatchlist(username));
     }
 
@@ -38,6 +40,7 @@ public class UserController {
     @DeleteMapping("/{username}/watchlist/remove")
     public ResponseEntity<List<WatchlistDto>> removeIssuerFromWatchlist(@PathVariable String username,
                                                           @RequestParam String issuerName) {
+
         List<WatchlistDto> data = userService.removeIssuerFromWatchlist(username, issuerName);
         return ResponseEntity.ok(data);
     }

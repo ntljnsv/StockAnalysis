@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/register")
 @CrossOrigin(origins="*")
@@ -21,6 +22,7 @@ public class RegisterController {
 
     @PostMapping
     public ResponseEntity<String>  registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
+
         try {
             User registeredUser = userService.register(
                     registerRequest.getUsername(),

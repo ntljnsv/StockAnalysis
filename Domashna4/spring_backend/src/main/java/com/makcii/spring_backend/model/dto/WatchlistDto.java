@@ -1,5 +1,6 @@
 package com.makcii.spring_backend.model.dto;
 
+
 public class WatchlistDto {
 
     private final String issuerName;
@@ -19,7 +20,6 @@ public class WatchlistDto {
     public Double getLastTransactionPrice() {
         return lastTransactionPrice;
     }
-
 
     public String getRecommendation() {
         return recommendation;

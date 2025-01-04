@@ -11,6 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.time.LocalDate;
 import java.util.List;
 
+
 @RestController
 @RequestMapping(value = "/dayData")
 @Validated
@@ -28,6 +29,7 @@ public class DayDataController {
 
     @GetMapping("/all")
     public ResponseEntity<List<DayData>> getAllStockData() {
+
         List<DayData> response = webClient.get()
                 .uri("/all")
                 .retrieve()
@@ -42,6 +44,7 @@ public class DayDataController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DayData> getStockDataById(@PathVariable("id") Long id) {
+
         DayData response = webClient.get()
                 .uri("/{id}", id)
                 .retrieve()
@@ -55,6 +58,7 @@ public class DayDataController {
 
     @GetMapping("/issuer/{name}")
     public ResponseEntity<List<DayData>> getStockDataForIssuer(@PathVariable("name") String issuer) {
+
         return ResponseEntity.ok(dayService.findByIssuer(issuer));
     }
 

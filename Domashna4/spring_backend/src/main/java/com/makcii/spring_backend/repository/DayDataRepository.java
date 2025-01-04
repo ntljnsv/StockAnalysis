@@ -9,8 +9,11 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+
 public interface DayDataRepository extends JpaRepository<DayData, Long> {
+
     List<DayData> findByIssuerName(String issuer);
+
 
     @Query("SELECT new com.makcii.spring_backend.model.dto.WatchlistDto(d.issuer.name, d.lastTransactionPrice, d.issuer.currentRecommendation) " +
             "FROM DayData d " +
