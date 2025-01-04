@@ -1,13 +1,10 @@
 package com.makcii.spring_backend.controller;
 
 import com.makcii.spring_backend.model.DayData;
-import com.makcii.spring_backend.model.exceptions.NoDataInPeriodException;
 import com.makcii.spring_backend.services.DayDataService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDate;
