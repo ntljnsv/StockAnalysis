@@ -1,6 +1,8 @@
 import api from "./api";
 
+
 export const getUserWatchlist = async (username) => {
+
     try {
         const response = await api.get(`/user/${username}/watchlist`);
         if(response.status === 200) {
@@ -10,10 +12,10 @@ export const getUserWatchlist = async (username) => {
     } catch (error) {
         console.log('Error fetching watchlist data:', error);
     }
-
 }
 
 export const addIssuerToWatchlist = async (username, issuerName) => {
+
     try {
         const response = await api.post(`/user/${username}/watchlist/add`, {
             issuerName: issuerName
@@ -25,10 +27,10 @@ export const addIssuerToWatchlist = async (username, issuerName) => {
     } catch (error) {
         console.log('Error adding issuer to watchlist:', error);
     }
-
 }
 
 export const removeIssuerFromWatchlist = async (username, issuerName) => {
+
     try {
         const response = await api.delete(`/user/${username}/watchlist/remove`, {
             params: {issuerName: issuerName}
@@ -40,11 +42,10 @@ export const removeIssuerFromWatchlist = async (username, issuerName) => {
     } catch (error) {
         console.log('Error adding issuer to watchlist:', error);
     }
-
 }
 
-
 export const getIssuerDataInPeriod = async (issuerName, startDate, endDate) => {
+
     try {
         const response = await api.get(`/dayData/issuer/${issuerName}/period`, {
             params: {startDate: startDate, endDate: endDate}
@@ -58,8 +59,8 @@ export const getIssuerDataInPeriod = async (issuerName, startDate, endDate) => {
     }
 }
 
-
 export const getLatest100Days = async (issuerName) => {
+
     try {
         const response = await api.get(`/dayData/issuer/${issuerName}/latest`);
         if(response.status === 200) {
@@ -72,8 +73,8 @@ export const getLatest100Days = async (issuerName) => {
     }
 }
 
-
 export const getIssuer = async (issuerName) => {
+
     try {
         const response = await api.get(`/issuers/${issuerName}`)
         if(response.status === 200) {
@@ -83,10 +84,10 @@ export const getIssuer = async (issuerName) => {
     } catch (error) {
         console.log('Could not find data for issuer:', error);
     }
-
 }
 
 export const getIssuersAndLatestPrices = async (searchTerm) => {
+
     try {
         const response = await api.get(`/issuers/search`, {
             params: {searchTerm: searchTerm}
@@ -98,10 +99,10 @@ export const getIssuersAndLatestPrices = async (searchTerm) => {
     } catch (error) {
         console.log('Could not find issuers:', error);
     }
-
 }
 
 export const getTopLatestIssuers = async () => {
+
     try {
         const response = await api.get(`/issuers/top`);
         if(response.status === 200) {
@@ -114,6 +115,7 @@ export const getTopLatestIssuers = async () => {
 }
 
 export const getIssuerPricePrediction = async (issuerName) => {
+
     try {
         const response = await api.get(`/predictions/${issuerName}`);
         if(response.status === 200) {

@@ -7,16 +7,19 @@ import logo from '../../assets/logo.jpg';
 import './Navbar.css';
 import {Button} from "react-bootstrap";
 
+
 const Navbar = () => {
 
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
 
     const handleLogin = () => {
+
         navigate('/login');
     }
 
     const handleRegister = () => {
+
         navigate('/register');
     }
 

@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { getIssuersAndLatestPrices } from "../../api/dataService";
 import './Issuers.css';
 
+
 const Issuers = () => {
+
     const [searchTerm, setSearchTerm] = useState('');
     const [issuers, setIssuers] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+
         const fetchData = async () => {
             const data = await getIssuersAndLatestPrices("");
             setIssuers(data);
@@ -16,6 +19,7 @@ const Issuers = () => {
     }, []);
 
     const handleSearchClick = async () => {
+
         setLoading(true);
         try {
             const data = await getIssuersAndLatestPrices(searchTerm);
@@ -28,6 +32,7 @@ const Issuers = () => {
     };
 
     const handleSearchChange = (event) => {
+
         setSearchTerm(event.target.value);
     };
 

@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import './Register.css';
 import logo from "../../assets/logo.jpg";
 
+
 const RegisterPage = () => {
+
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -17,11 +19,13 @@ const RegisterPage = () => {
     const [success, setSuccess] = useState('');
 
     const handleChange = (e) => {
+
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
     const handleSubmit = async (e) => {
+
         e.preventDefault();
         setError('');
         setSuccess('');
@@ -92,6 +96,5 @@ const RegisterPage = () => {
         </div>
     );
 };
-
 
 export default RegisterPage;

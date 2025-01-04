@@ -6,12 +6,15 @@ import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import './ProfilePage.css';
 import { getUserWatchlist, removeIssuerFromWatchlist } from '../../api/dataService';
 
+
 const ProfilePage = () => {
+
     const user = localStorage.getItem("username");
     const [watchlist, setWatchlist] = useState([]);
     const [hoveredStock, setHoveredStock] = useState(null);
 
     useEffect(() => {
+
         const fetchData = async () => {
             try {
                 const data = await getUserWatchlist(user);
@@ -21,10 +24,12 @@ const ProfilePage = () => {
                 console.error('Error fetching user watchlist:', error);
             }
         };
+
         fetchData();
     }, []);
 
     const handleRemoveFromWatchlist = async (issuer) => {
+
         try {
             setWatchlist((prevState) =>
                 prevState.filter((item) => item.issuerName !== issuer.issuerName)
@@ -35,16 +40,18 @@ const ProfilePage = () => {
         }
     };
 
-
     const handleMouseEnter = (issuerName) => {
+
         setHoveredStock(issuerName);
     };
 
     const handleMouseLeave = () => {
+
         setHoveredStock(null);
     };
 
     const getRecommendationClass = (recommendation) => {
+
         if (recommendation === 'Buy') return 'success';
         if (recommendation === 'Sell') return 'danger';
         if (recommendation === 'no_data' || recommendation === 'Hold') return 'warning';

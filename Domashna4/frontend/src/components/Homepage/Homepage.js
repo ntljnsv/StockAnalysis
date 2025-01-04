@@ -5,7 +5,9 @@ import BarChart from '../Charts/BarChart';
 import logo from "../../assets/logo.jpg";
 import './Homepage.css';
 
+
 const Homepage = () => {
+
     const [topIssuers, setTopIssuers] = useState({
         highestPrices: [],
         lowestPrices: [],
@@ -14,6 +16,7 @@ const Homepage = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+
         const fetchData = async () => {
             try {
                 const data = await getTopLatestIssuers();

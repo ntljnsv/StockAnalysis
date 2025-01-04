@@ -4,6 +4,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
+
 const BarChart = ({ data, label, barColor = 'rgba(75, 192, 192, 0.5)', valueType = 'price' }) => {
 
     const valueKey = valueType === 'price' ? 'price' : 'volume';

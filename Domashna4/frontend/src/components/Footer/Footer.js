@@ -1,7 +1,9 @@
 import React from 'react';
 import "./Footer.css";
 
+
 const Footer = () => {
+
     return(
         <footer className="footer">
             <div className={"footer-container"}>
@@ -26,7 +28,6 @@ const Footer = () => {
             <hr/>
             <p>© 2024 Макции. Сите права се задржани.</p>
         </footer>
-
     )
 }
 

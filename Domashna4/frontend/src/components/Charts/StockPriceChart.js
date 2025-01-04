@@ -4,7 +4,9 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, BarElement);
 
+
 const StockPriceVolumeChart = ({ data }) => {
+
     const chartData = {
         labels: data.map((entry) => entry.date),
         datasets: [
@@ -28,8 +30,6 @@ const StockPriceVolumeChart = ({ data }) => {
             },
         ],
     };
-
-
 
     const options = {
         responsive: true,
@@ -65,7 +65,6 @@ const StockPriceVolumeChart = ({ data }) => {
             },
         },
     };
-
 
     return (
         <div>

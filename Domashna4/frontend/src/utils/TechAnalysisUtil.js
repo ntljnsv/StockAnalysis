@@ -1,7 +1,9 @@
 import { RSI, SMA, EMA, MACD, Stochastic, CCI, WilliamsR, WMA } from "technicalindicators";
 import { getIssuerDataInPeriod } from "../api/dataService";
 
+
 const preprocessData = (data) => {
+
     return data.map(d => ({
         date: d.date,
         close: d.lastTransactionPrice,
@@ -57,12 +59,14 @@ const calculateIndicators = (data, period) => {
 };
 
 const calculateVWMA = (closePrices, volumes) => {
+
     const weightedSum = closePrices.reduce((sum, price, i) => sum + price * volumes[i], 0);
     const volumeSum = volumes.reduce((sum, volume) => sum + volume, 0);
     return weightedSum / volumeSum;
 };
 
 const calculateHMA = (data, period) => {
+
     const sqrtPeriod = Math.sqrt(period);
     const wma1 = WMA.calculate({ values: data, period: period / 2 });
     const wma2 = WMA.calculate({ values: data, period });
@@ -81,7 +85,7 @@ const generateSignal = (indicators) => {
     const williamsRValue = indicators.williamsR && indicators.williamsR.length > 0 ? indicators.williamsR[0] : null;
     const cciValue = indicators.cci && indicators.cci.length > 0 ? indicators.cci[0] : null;
 
-
+    
     const rsiBuy = rsiValue !== null && rsiValue < 30;
     const rsiSell = rsiValue !== null && rsiValue > 70;
 
@@ -112,6 +116,7 @@ const generateSignal = (indicators) => {
 
 
 const calculateIndicatorsForIssuer = async (issuerName, startDate, endDate, period) => {
+
     try {
         const data = await getIssuerDataInPeriod(issuerName, startDate, endDate);
 
@@ -133,8 +138,5 @@ const calculateIndicatorsForIssuer = async (issuerName, startDate, endDate, peri
         return null;
     }
 };
-
-
-
 
 export { preprocessData, calculateIndicators, generateSignal, calculateIndicatorsForIssuer };

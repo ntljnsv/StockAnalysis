@@ -4,6 +4,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, LineElement, Title, Toolt
 
 ChartJS.register(CategoryScale, LinearScale, LineElement, Title, Tooltip, Legend);
 
+
 const StockPercentageChangeChart = ({ data }) => {
 
     const percentageChangeData = {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 
+
 const columns = [
     { field: 'date', headerName: 'Датум', flex: 1, minWidth: 80 },
     { field: 'lastTransactionPrice', headerName: 'Цена на последна трансакција',flex: 1, minWidth: 100 },
@@ -15,6 +16,7 @@ const columns = [
 
 
 const DataTable = ({data}) => {
+
     return (
         <div style={{ height: 800, width: '100%' }}>
             <DataGrid

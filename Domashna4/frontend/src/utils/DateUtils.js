@@ -2,8 +2,8 @@ const formatDate = (date) => {
     return date.toISOString().split('T')[0]
 }
 
-
 const getDate = (dayDistance, monthDistance, yearDistance) => {
+
     const today = new Date();
     let day = new Date();
     if (dayDistance) {

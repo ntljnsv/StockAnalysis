@@ -11,7 +11,9 @@ import DataTable from "./DataTable";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 
+
 const IssuerPage = () => {
+
     const user = localStorage.getItem("username");
     const { issuerName } = useParams();
     const [stockData, setStockData] = useState([]);
@@ -25,8 +27,8 @@ const IssuerPage = () => {
     const [pricePrediction, setPricePrediction] = useState(null);
 
 
-
     useEffect(() => {
+
         const fetchStockData = async () => {
             try {
                 const data = await getLatest100Days(issuerName);
@@ -38,6 +40,7 @@ const IssuerPage = () => {
         };
 
         const calculateIndicators = async () => {
+
             const today = formatDate(new Date());
             const oneDayAgo = getDate(1);
             const oneWeekAgo = getDate(7);
@@ -63,11 +66,13 @@ const IssuerPage = () => {
         }
 
         const fetchIssuerData = async () => {
+
             const data = await getIssuer(issuerName);
             setSentimentRecommendation(data.currentRecommendation);
         }
 
         const getPrediction = async () => {
+
             const data = await getIssuerPricePrediction(issuerName);
             if(data && data.prediction) {
                 let pred = Number.parseFloat(data.prediction);
@@ -135,7 +140,6 @@ const IssuerPage = () => {
                 {error && <div className="alert alert-danger mt-2">{error}</div>}
             </div>
 
-
             <div className={"issuer-container "}>
                 <div className={"chart-recommendation"}>
                     <div className="main-chart card">
@@ -175,8 +179,6 @@ const IssuerPage = () => {
                     </div>
                 </div>
 
-
-
             </div>
 
             <h2 className={"signals-indicators"}>Сигнали и индикатори</h2>
@@ -206,7 +208,6 @@ const IssuerPage = () => {
 
                 </div>
 
-
                 <div className="signal-group">
                     <div className="signal-item">
                         <h3>Просек на месечни индикатори со единечна вредност:</h3>
@@ -225,13 +226,11 @@ const IssuerPage = () => {
                 </div>
             </div>
 
-
             <div className="issuer-card">
                 <h2>Податоци</h2>
                 <p className={"desc"}>Податоци за последните валидни 100 дена</p>
                 <DataTable data={stockData}></DataTable>
             </div>
-
 
         </div>
     );

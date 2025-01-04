@@ -2,6 +2,7 @@ import api from "./api";
 
 
 export const login = async (username, password) => {
+
     try {
         const response = await api.post('/login', { username, password });
         if (response.status === 200) {
@@ -15,8 +16,8 @@ export const login = async (username, password) => {
     }
 };
 
-
 export const register = async (username, password, repeatedPassword) => {
+
     try {
         const response = await api.post('/register', { username, password, repeatedPassword });
         if (response.status === 200) {
@@ -27,8 +28,8 @@ export const register = async (username, password, repeatedPassword) => {
     }
 };
 
-
 export const logout = () => {
+
     localStorage.removeItem('token');
     localStorage.removeItem('username');
 };

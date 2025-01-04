@@ -16,7 +16,6 @@ const PrivateRoute = ({children}) => {
     return token ? children : <Navigate to="/login" />;
 }
 
-
 const AppRoutes = () => {
 
     const location = useLocation();
