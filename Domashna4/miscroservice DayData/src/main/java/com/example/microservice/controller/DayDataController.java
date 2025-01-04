@@ -39,7 +39,7 @@ public class DayDataController {
         try {
             return ResponseEntity.ok(dayService.getIssuerDataInPeriod(issuer, startDate, endDate));
         } catch (NoDataInPeriodException e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
 
     }
