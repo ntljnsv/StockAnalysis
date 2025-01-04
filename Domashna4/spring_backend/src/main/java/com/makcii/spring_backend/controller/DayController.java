@@ -23,7 +23,7 @@ public class DayController {
     public DayController(DayDataService dayDataService, WebClient.Builder webClientBuilder) {
 
         this.dayService = dayDataService;
-        this.webClient = webClientBuilder.baseUrl("http://localhost:9092/dayData/microservice").build();
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8081/dayData/microservice").build();
     }
 
     @GetMapping("/all")
