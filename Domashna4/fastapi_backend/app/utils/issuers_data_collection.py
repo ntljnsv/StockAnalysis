@@ -11,6 +11,7 @@ from sqlalchemy import text
 
 
 class DatabaseHelper:
+
     def __init__(self, connection_string):
         self.connection_string = connection_string
         self.engine = create_engine(self.connection_string)
@@ -46,6 +47,7 @@ class DatabaseHelper:
 
 
 class Pipeline(object):
+
     def __init__(self):
         self.filters = []
 
@@ -62,7 +64,6 @@ class Pipeline(object):
         return data
 
     async def execute(self, url, issuer_urls):
-        final_data = []
         async with aiohttp.ClientSession() as session:
             start_data = await self.filters[0].process(session, issuer_urls, [])
             processing_tasks = [self.process_data(session, url, data) for data in start_data]
@@ -72,11 +73,13 @@ class Pipeline(object):
 
 
 class Filter(object):
+
     async def process(self, session, url, data):
         raise NotImplementedError()
 
 
 class ValidIssuersFilter(Filter):
+
     def __init__(self, db_helper):
         self.db_helper = db_helper
 
@@ -107,6 +110,7 @@ class ValidIssuersFilter(Filter):
 
 
 class IssuerDatesFilter(Filter):
+
     def __init__(self, db_helper):
         self.db_helper = db_helper
 
@@ -165,7 +169,7 @@ class FillInIssuerDataFilter(Filter):
                         return None
             except asyncio.TimeoutError:
                 pass
-            except aiohttp.ClientError as e:
+            except aiohttp.ClientError:
                 pass
             await asyncio.sleep(2 ** attempt + random.uniform(0, 1))
         return None
@@ -213,6 +217,7 @@ class FillInIssuerDataFilter(Filter):
 
 
 class CombineAndSaveFilter(Filter):
+
     def __init__(self, db_helper):
         self.db_helper = db_helper
 

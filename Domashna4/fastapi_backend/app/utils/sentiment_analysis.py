@@ -14,6 +14,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 
 class DatabaseHelper:
+
     def __init__(self, connection_string):
         self.connection_string = connection_string
         self.engine = create_engine(self.connection_string)

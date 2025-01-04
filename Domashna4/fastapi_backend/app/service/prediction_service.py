@@ -2,7 +2,6 @@ import os
 from typing import List
 import joblib
 import numpy as np
-#import keras
 from tensorflow import keras
 from pydantic import BaseModel
 
@@ -15,6 +14,7 @@ scaler = joblib.load(scaler_path)
 
 
 class DayData(BaseModel):
+
     lastTransactionPrice: float
     percentageChange: float
     volume: float
@@ -23,6 +23,7 @@ class DayData(BaseModel):
 
 
 class PredictionService:
+
     @staticmethod
     def predict(day_data: List[DayData]):
         i_price = [data.lastTransactionPrice for data in day_data]
@@ -41,14 +42,14 @@ class PredictionService:
 
         try:
             input_array = scaler.transform([input_array])
-        except Exception as e:
+        except Exception:
             return {"error": "Scaler error"}
 
         input_array = input_array.reshape(-1, 5, 5)
 
         try:
             prediction = model.predict(input_array)
-        except Exception as e:
+        except Exception:
             return {"error": "Prediction error"}
 
         prediction = prediction[0, 0]
