@@ -24,7 +24,8 @@ public class DayDataController {
     public DayDataController(DayDataService dayDataService, WebClient.Builder webClientBuilder) {
 
         this.dayService = dayDataService;
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8081/dayData/microservice").build();
+        String url = System.getenv("MICROSERVICE_URL");
+        this.webClient = webClientBuilder.baseUrl(url).build();
     }
 
     @GetMapping("/all")

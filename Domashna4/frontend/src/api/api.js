@@ -1,7 +1,7 @@
 import axios from 'axios';
-// TODO: Change baseURL to env var
+
 const api = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: process.env.REACT_APP_SPRING_URL || 'http://spring-backend:8080',
     headers: {
         'Content-Type': 'application/json',
     },

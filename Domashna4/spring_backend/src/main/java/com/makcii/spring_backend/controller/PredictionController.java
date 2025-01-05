@@ -17,10 +17,12 @@ public class PredictionController {
     private final DayDataService dayDataService;
 
     private final RestTemplate restTemplate;
+    private final String url;
 
     public PredictionController(DayDataService dayDataService, RestTemplateBuilder builder) {
 
         this.dayDataService = dayDataService;
+        this.url = System.getenv("FASTAPI_URL");
         this.restTemplate = builder.build();
     }
 
@@ -30,9 +32,7 @@ public class PredictionController {
         try {
             List<PredictionDataDto> recentData = dayDataService.getPredictionData(issuerName, 5);
 
-            String fastApiUrl = "http://localhost:8000/predict";
-
-            String response = restTemplate.postForObject(fastApiUrl, recentData, String.class);
+            String response = restTemplate.postForObject(this.url, recentData, String.class);
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {

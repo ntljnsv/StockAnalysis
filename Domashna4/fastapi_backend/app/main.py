@@ -1,4 +1,5 @@
 import logging
+import os
 from typing import List
 
 from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
@@ -13,7 +14,7 @@ app = FastAPI()
 
 scheduler = AsyncIOScheduler()
 
-db_connection_string = "postgresql+psycopg2://sa:p123@localhost:5432/Makcii_DB"
+db_connection_string = os.environ.get("DB_CONNECTION_STRING", "postgresql+psycopg2://sa:p123@localhost:5432/Makcii_DB")
 sentiment_analysis = SentimentAnalysis(db_connection_string=db_connection_string)
 issuer_collector = IssuerCollector(db_connection_string=db_connection_string)
 

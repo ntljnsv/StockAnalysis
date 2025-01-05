@@ -1,0 +1,103 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-server
+    restart: always
+    environment:
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: p123
+      POSTGRES_DB: Makcii_DB
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db_init/init/init_tables.sql:/docker-entrypoint-initdb.d/init_tables.sql
+    networks:
+      - makcii-network
+   
+  scraping-script:
+    build: ./db_init/scraping
+    container_name: python-scraper
+    environment: 
+      - DB_CONNECTION_STRING=postgresql+psycopg2://sa:p123@postgres:5432/Makcii_DB
+    depends_on:
+      - postgres
+    volumes:
+      - ./db_init/scraping:/app
+    restart: on-failure
+    networks:
+      - makcii-network
+  
+  fastapi-backend:
+    build: 
+      context: ./fastapi_backend
+    container_name: fastapi-backend
+    environment:
+      - DB_CONNECTION_STRING=postgresql+psycopg2://sa:p123@postgres:5432/Makcii_DB
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    restart: always
+    networks:
+      - makcii-network
+    
+  microservice:
+    build:
+      context: ./microservice_day_data
+    container_name: microservice
+    environment:
+      - DB_CONNECTION_STRING=jdbc:postgresql://postgres:5432/Makcii_DB
+      - DB_USERNAME=sa
+      - DB_PASSWORD=p123
+      - PORT=8081
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+    restart: always
+    networks:
+      - makcii-network
+  
+  spring-backend:
+    build: 
+      context: ./spring_backend
+    container_name: spring-backend
+    environment:
+      - DB_CONNECTION_STRING=jdbc:postgresql://postgres:5432/Makcii_DB
+      - DB_USERNAME=sa
+      - DB_PASSWORD=p123
+      - PORT=8080
+      - FASTAPI_URL=http://fastapi-backend:8000/predict
+      - MICROSERVICE_URL=http://microservice:8081/dayData/microservice
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - microservice
+      - fastapi-backend
+    restart: always
+    networks:
+      - makcii-network
+  
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    environment:
+      - REACT_APP_SPRING_URL=http://spring-backend:8080
+    ports:
+      - "3000:3000"
+    depends_on:
+      - spring-backend
+    restart: always
+    networks:
+      - makcii-network
+  
+networks:
+  makcii-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  
