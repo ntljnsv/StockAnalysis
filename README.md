@@ -4,7 +4,8 @@
 
 Име на апликацијата: МАКЦИИ 
 
-Линк до нашата апликација Макции: makcii-dnb2cbdphscuf9d8.westeurope-01.azurewebsites.net
+Линк до нашата апликација Макции: 
+- makcii-dnb2cbdphscuf9d8.westeurope-01.azurewebsites.net
 
 Тимот кој ја изработуваше апликацијата:
  - Наталија Насева (221161)
