@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: process.env.REACT_APP_SPRING_URL || 'http://spring-backend:8080',
+    baseURL: process.env.REACT_APP_SPRING_URL || 'https://makcii-dnb2cbdphscuf9d8.westeurope-01.azurewebsites.net/spring',
     headers: {
         'Content-Type': 'application/json',
     },
@@ -19,3 +19,4 @@ api.interceptors.request.use(
 );
 
 export default api;
+
