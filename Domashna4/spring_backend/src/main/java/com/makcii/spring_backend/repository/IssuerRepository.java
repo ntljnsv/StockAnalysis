@@ -22,7 +22,7 @@ public interface IssuerRepository extends JpaRepository<Issuer, String> {
     @Query("SELECT new com.makcii.spring_backend.model.dto.IssuerStatsDto(i.name, d.lastTransactionPrice, d.volume) " +
             "FROM Issuer i " +
             "JOIN DayData d ON d.issuer = i " +
-            "WHERE d.date = (SELECT MAX(dd.date) FROM DayData dd WHERE dd.date <= CURRENT_DATE AND dd.date >= CURRENT_DATE - 3 DAY) " +
+            "WHERE d.date = (SELECT MAX(dd.date) FROM DayData dd WHERE dd.date <= CURRENT_DATE AND dd.date >= CURRENT_DATE - 7 DAY) " +
             "ORDER BY d.lastTransactionPrice DESC")
     List<IssuerStatsDto> getTopIssuersByHighestLatestPrice(Pageable pageable);
 
@@ -30,7 +30,7 @@ public interface IssuerRepository extends JpaRepository<Issuer, String> {
     @Query("SELECT new com.makcii.spring_backend.model.dto.IssuerStatsDto(i.name, d.lastTransactionPrice, d.volume) " +
             "FROM Issuer i " +
             "JOIN DayData d ON d.issuer = i " +
-            "WHERE d.date = (SELECT MAX(dd.date) FROM DayData dd WHERE dd.date <= CURRENT_DATE AND dd.date >= CURRENT_DATE - 3 DAY) " +
+            "WHERE d.date = (SELECT MAX(dd.date) FROM DayData dd WHERE dd.date <= CURRENT_DATE AND dd.date >= CURRENT_DATE - 7 DAY) " +
             "ORDER BY d.lastTransactionPrice ASC")
     List<IssuerStatsDto> getTopIssuersByLowestLatestPrice(Pageable pageable);
 
@@ -38,7 +38,7 @@ public interface IssuerRepository extends JpaRepository<Issuer, String> {
     @Query("SELECT new com.makcii.spring_backend.model.dto.IssuerStatsDto(i.name, d.lastTransactionPrice, d.volume) " +
             "FROM Issuer i " +
             "JOIN DayData d ON d.issuer = i " +
-            "WHERE d.date = (SELECT MAX(dd.date) FROM DayData dd WHERE dd.date <= CURRENT_DATE AND dd.date >= CURRENT_DATE - 3 DAY) " +
+            "WHERE d.date = (SELECT MAX(dd.date) FROM DayData dd WHERE dd.date <= CURRENT_DATE AND dd.date >= CURRENT_DATE - 7 DAY) " +
             "ORDER BY d.volume DESC")
     List<IssuerStatsDto> getTopIssuersByHighestLatestVolume(Pageable pageable);
 }
