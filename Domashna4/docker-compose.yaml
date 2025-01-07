@@ -1,65 +1,45 @@
 services:
-  postgres:
-    build:
-      context: ./db_init
-    container_name: postgres
-    restart: always
+  frontend:
+    image: makciiregistry.azurecr.io/frontend
+    container_name: frontend
     environment:
-      POSTGRES_USER: sa
-      POSTGRES_PASSWORD: p123
-      POSTGRES_DB: Makcii_DB
-    ports:
-      - "5433:5432"
-    networks:
-      - makcii-network
+      - REACT_APP_SPRING_URL=http://makcii-dnb2cbdphscuf9d8.westeurope-01.azurewebsites.net/spring
+    depends_on:
+      - spring-backend
+    restart: always
    
   scraping-script:
-    build: ./db_init/scraping
+    image: makciiregistry.azurecr.io/scraping-script:latest
     container_name: python-scraper
     environment: 
       - DB_CONNECTION_STRING=postgresql+psycopg2://sa:p123@postgres:5432/Makcii_DB
     depends_on:
       - postgres
-    volumes:
-      - ./db_init/scraping:/app
     restart: on-failure
-    networks:
-      - makcii-network
   
   fastapi-backend:
-    build: 
-      context: ./fastapi_backend
+    image: makciiregistry.azurecr.io/fastapi-backend:latest
     container_name: fastapi-backend
     environment:
       - DB_CONNECTION_STRING=postgresql+psycopg2://sa:p123@postgres:5432/Makcii_DB
-    ports:
-      - "8000:8000"
     depends_on:
       - postgres
     restart: always
-    networks:
-      - makcii-network
     
   microservice:
-    build:
-      context: ./microservice_day_data
+    image: makciiregistry.azurecr.io/microservice:latest
     container_name: microservice
     environment:
       - DB_CONNECTION_STRING=jdbc:postgresql://postgres:5432/Makcii_DB
       - DB_USERNAME=sa
       - DB_PASSWORD=p123
       - PORT=8081
-    ports:
-      - "8081:8081"
     depends_on:
       - postgres
     restart: always
-    networks:
-      - makcii-network
-  
+
   spring-backend:
-    build: 
-      context: ./spring_backend
+    image: makciiregistry.azurecr.io/spring-backend:latest
     container_name: spring-backend
     environment:
       - DB_CONNECTION_STRING=jdbc:postgresql://postgres:5432/Makcii_DB
@@ -68,30 +48,35 @@ services:
       - PORT=8080
       - FASTAPI_URL=http://fastapi-backend:8000/predict
       - MICROSERVICE_URL=http://microservice:8081/dayData/microservice
-    ports:
-      - "8080:8080"
     depends_on:
       - postgres
       - microservice
       - fastapi-backend
     restart: always
-    networks:
-      - makcii-network
-  
-  frontend:
-    build:
-      context: ./frontend
-    container_name: frontend
-    environment:
-      - REACT_APP_SPRING_URL=http://spring-backend:8080
-    ports:
-      - "3000:3000"
-    depends_on:
-      - spring-backend
+      
+  postgres:
+    image: makciiregistry.azurecr.io/postgres:latest
+    container_name: postgres
     restart: always
-    networks:
-      - makcii-network
-  
-networks:
-  makcii-network:
-    driver: bridge
+    environment:
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: p123
+      POSTGRES_DB: Makcii_DB
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "sa", "-d", "Makcii_DB"]
+      interval: 10s
+      retries: 5
+      start_period: 60s
+      timeout: 5s
+
+  nginx:
+    image: makciiregistry.azurecr.io/nginx-reverse-proxy:latest
+    container_name: nginx-reverse-proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - spring-backend
+      - fastapi-backend
+      - microservice
+    restart: always
