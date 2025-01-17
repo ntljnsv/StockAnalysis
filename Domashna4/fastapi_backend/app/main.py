@@ -28,7 +28,7 @@ def schedule_issuer_collecting():
 
 
 scheduler.add_job(schedule_issuer_collecting, 'cron', hour=10, minute=0)
-scheduler.add_job(schedule_sentiment_analysis, 'cron', hour=10, minute=10)
+scheduler.add_job(schedule_sentiment_analysis, 'cron', hour=10, minute=15)
 
 
 def job_listener(event):

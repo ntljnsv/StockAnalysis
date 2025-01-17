@@ -1,15 +1,23 @@
 services:
   frontend:
-    image: makciiregistry.azurecr.io/frontend
+    #for running locally:
+    build:
+      context: ./frontend
+    #for hosting
+    #image: makciiregistry.azurecr.io/frontend
     container_name: frontend
     environment:
-      - REACT_APP_SPRING_URL=http://makcii-dnb2cbdphscuf9d8.westeurope-01.azurewebsites.net/spring
+      - REACT_APP_SPRING_URL=http://http://localhost:81//spring
     depends_on:
       - spring-backend
     restart: always
    
   scraping-script:
-    image: makciiregistry.azurecr.io/scraping-script:latest
+    #for running locally:
+    build:
+      context: ./db_init/scraping
+    #for hosting
+    #image: makciiregistry.azurecr.io/scraping-script:latest
     container_name: python-scraper
     environment: 
       - DB_CONNECTION_STRING=postgresql+psycopg2://sa:p123@postgres:5432/Makcii_DB
@@ -18,7 +26,10 @@ services:
     restart: on-failure
   
   fastapi-backend:
-    image: makciiregistry.azurecr.io/fastapi-backend:latest
+    #for running locally
+    build:
+      context: ./fastapi_backend
+    #image: makciiregistry.azurecr.io/fastapi-backend:latest
     container_name: fastapi-backend
     environment:
       - DB_CONNECTION_STRING=postgresql+psycopg2://sa:p123@postgres:5432/Makcii_DB
@@ -27,7 +38,11 @@ services:
     restart: always
     
   microservice:
-    image: makciiregistry.azurecr.io/microservice:latest
+    #for running locally:
+    build:
+      context: ./microservice_day_data
+    #for hosting
+    #image: makciiregistry.azurecr.io/microservice:latest
     container_name: microservice
     environment:
       - DB_CONNECTION_STRING=jdbc:postgresql://postgres:5432/Makcii_DB
@@ -39,7 +54,11 @@ services:
     restart: always
 
   spring-backend:
-    image: makciiregistry.azurecr.io/spring-backend:latest
+    #for running locally:
+    build:
+      context: ./spring_backend
+    #for hosting
+    #image: makciiregistry.azurecr.io/spring-backend:latest
     container_name: spring-backend
     environment:
       - DB_CONNECTION_STRING=jdbc:postgresql://postgres:5432/Makcii_DB
@@ -55,7 +74,11 @@ services:
     restart: always
       
   postgres:
-    image: makciiregistry.azurecr.io/postgres:latest
+    #for running locally:
+    build:
+      context: ./db_init
+    #for hosting
+    #image: makciiregistry.azurecr.io/postgres:latest
     container_name: postgres
     restart: always
     environment:
@@ -70,10 +93,14 @@ services:
       timeout: 5s
 
   nginx:
-    image: makciiregistry.azurecr.io/nginx-reverse-proxy:latest
+    #for running locally:
+    build:
+      context: ./nginx_config
+    #for hosting
+    #image: makciiregistry.azurecr.io/nginx-reverse-proxy:latest
     container_name: nginx-reverse-proxy
     ports:
-      - "80:80"
+      - "81:80"
     depends_on:
       - frontend
       - spring-backend

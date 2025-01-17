@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: process.env.REACT_APP_SPRING_URL || 'https://makcii-dnb2cbdphscuf9d8.westeurope-01.azurewebsites.net/spring',
+    // baseURL: process.env.REACT_APP_SPRING_URL || 'https://makcii-dnb2cbdphscuf9d8.westeurope-01.azurewebsites.net/spring', // for hosting
+    baseURL: process.env.REACT_APP_SPRING_URL || 'http://localhost:81/spring',  // for running locally
     headers: {
         'Content-Type': 'application/json',
     },

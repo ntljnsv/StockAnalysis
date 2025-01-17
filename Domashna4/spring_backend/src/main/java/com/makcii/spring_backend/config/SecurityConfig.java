@@ -52,8 +52,9 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of(
                 "https://makcii-dnb2cbdphscuf9d8.westeurope-01.azurewebsites.net",
-                "http://frontend:3000",
-                "http://fastapi-backend:8000",
+                "http://frontend:3000", // for running locally
+                "http://localhost:81",  // for running locally
+                "http://fastapi-backend:8000", // for running locally
                 "https://makcii-dnb2cbdphscuf9d8.westeurope-01.azurewebsites.net:80"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); 
         configuration.setAllowedHeaders(List.of("*")); 
